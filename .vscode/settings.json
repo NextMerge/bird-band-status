@@ -1,0 +1,6 @@
+{
+    "eslint.useFlatConfig": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "files.insertFinalNewline": true
+}

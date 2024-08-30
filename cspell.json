@@ -1,0 +1,20 @@
+{
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "import": ["./node_modules/@cspell/dict-fr-fr/cspell-ext.json"],
+    "language": "en-us,fr-fr",
+    "dictionaries": ["technical"],
+    "dictionaryDefinitions": [
+        {
+            "addWords": true,
+            "name": "technical",
+            "path": "./cspell-dict/technical.txt"
+        }
+    ],
+    "ignorePaths": [
+        "node_modules",
+        "bun.lockb",
+        ".vscode",
+        ".gitignore",
+        ".husky"
+    ]
+}

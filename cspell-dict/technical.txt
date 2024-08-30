@@ -1,0 +1,5 @@
+lockb
+solidjs
+tailwindcss
+tseslint
+vinxi
