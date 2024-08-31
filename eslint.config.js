@@ -3,10 +3,10 @@
 import globals from "globals";
 
 import eslint from "@eslint/js";
+import eslintConfigPrettier from "eslint-config-prettier";
 import tseslint from "typescript-eslint";
 // @ts-expect-error idk why we need the extension here
 import solid from "eslint-plugin-solid/configs/typescript.js";
-import eslintConfigPrettier from "eslint-config-prettier";
 
 export default tseslint.config(
     eslint.configs.recommended,

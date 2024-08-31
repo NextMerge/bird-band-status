@@ -1,12 +1,15 @@
 {
     "name": "example-with-tailwindcss",
     "type": "module",
+    "engines": {
+        "node": ">=18"
+    },
     "scripts": {
-        "dev": "vinxi dev",
         "build": "vinxi build",
-        "start": "vinxi start",
         "cspell": "cspell '**'",
-        "prepare": "husky"
+        "dev": "vinxi dev",
+        "prepare": "husky",
+        "start": "vinxi start"
     },
     "dependencies": {
         "@solidjs/router": "^0.14.1",
@@ -21,9 +24,6 @@
         "tailwindcss-animate": "^1.0.7",
         "vinxi": "^0.4.1"
     },
-    "engines": {
-        "node": ">=18"
-    },
     "devDependencies": {
         "@cspell/dict-fr-fr": "^2.2.2",
         "@eslint/js": "^9.9.1",
@@ -37,6 +37,10 @@
         "husky": "^9.1.5",
         "lint-staged": "^15.2.9",
         "prettier": "^3.3.3",
+        "prettier-plugin-organize-imports": "^4.0.0",
+        "prettier-plugin-pkg": "^0.18.1",
+        "prettier-plugin-sh": "^0.14.0",
+        "prettier-plugin-tailwindcss": "^0.6.6",
         "typescript": "^5.5.4",
         "typescript-eslint": "^8.3.0"
     },
