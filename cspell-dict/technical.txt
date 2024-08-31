@@ -1,3 +1,4 @@
+clsx
 lockb
 solidjs
 tailwindcss

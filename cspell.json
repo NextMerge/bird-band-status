@@ -2,12 +2,17 @@
     "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
     "import": ["./node_modules/@cspell/dict-fr-fr/cspell-ext.json"],
     "language": "en-us,fr-fr",
-    "dictionaries": ["technical"],
+    "dictionaries": ["technical", "birding"],
     "dictionaryDefinitions": [
         {
             "addWords": true,
             "name": "technical",
             "path": "./cspell-dict/technical.txt"
+        },
+        {
+            "addWords": true,
+            "name": "birding",
+            "path": "./cspell-dict/birding.txt"
         }
     ],
     "ignorePaths": [

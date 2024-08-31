@@ -10,10 +10,18 @@
         "allowJs": true,
         "noEmit": true,
         "strict": true,
-        "types": ["vinxi/types/client"],
+        "types": ["vinxi/types/client", "bun"],
         "isolatedModules": true,
         "paths": {
             "~/*": ["./src/*"]
-        }
+        },
+
+        "allowUnreachableCode": false,
+        "exactOptionalPropertyTypes": false, // Hard to use regular JSX coding styles with this.
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true
     }
 }

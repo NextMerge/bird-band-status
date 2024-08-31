@@ -25,5 +25,8 @@ export default tseslint.config(
                 ...globals.node,
             },
         },
+        rules: {
+            "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+        },
     }
 );

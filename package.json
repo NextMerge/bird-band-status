@@ -27,6 +27,7 @@
     "devDependencies": {
         "@cspell/dict-fr-fr": "^2.2.2",
         "@eslint/js": "^9.9.1",
+        "@types/bun": "^1.1.8",
         "@types/eslint-config-prettier": "^6.11.3",
         "@types/eslint__js": "^8.42.3",
         "cspell": "^8.14.2",
@@ -41,7 +42,6 @@
         "prettier-plugin-pkg": "^0.18.1",
         "prettier-plugin-sh": "^0.14.0",
         "prettier-plugin-tailwindcss": "^0.6.6",
-        "typescript": "^5.5.4",
         "typescript-eslint": "^8.3.0"
     },
     "lint-staged": {
