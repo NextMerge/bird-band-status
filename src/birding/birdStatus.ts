@@ -1,6 +1,6 @@
-type BirdStatus = {
+export type BirdStatus = {
     code: number;
-    description: {
+    title: {
         en: string;
         fr: string;
     };
@@ -10,10 +10,22 @@ type BirdStatus = {
     };
 };
 
+export const defaultBirdStatus: BirdStatus = {
+    code: 3,
+    title: {
+        en: "Normal wild bird",
+        fr: "Oiseau sauvage normal",
+    },
+    definition: {
+        en: "Normal, wild bird: released in same 10-minute block as captured: held 24 hours or less.",
+        fr: "Oiseau sauvage normal : relâché dans le bloc de 10 minutes où il a été capturé; maintenu en captivité pendant 24 heures ou moins.",
+    },
+};
+
 export const birdStatuses: BirdStatus[] = [
     {
         code: 2,
-        description: {
+        title: {
             en: "Transported",
             fr: "Transporté",
         },
@@ -22,20 +34,10 @@ export const birdStatuses: BirdStatus[] = [
             fr: "Transporté à un bloc de 10 minutes différent, mais il s’agit par ailleurs d’un oiseau sauvage normal (il faut détenir un permis délivré par les autorités d’application de la loi fédérales et/ou d’État) : peut avoir été maintenu en captivité pendant plus de 24 heures, ou non. Le lieu de baguage, l’âge, le sexe et la date de baguage doivent être établis au moment de la remise en liberté. Le lieu et la date de la capture doivent être indiqués dans le champ « Remarques ».",
         },
     },
-    {
-        code: 3,
-        description: {
-            en: "Normal wild bird",
-            fr: "Oiseau sauvage normal",
-        },
-        definition: {
-            en: "Normal, wild bird: released in same 10-minute block as captured: held 24 hours or less.",
-            fr: "Oiseau sauvage normal : relâché dans le bloc de 10 minutes où il a été capturé; maintenu en captivité pendant 24 heures ou moins.",
-        },
-    },
+    defaultBirdStatus,
     {
         code: 4,
-        description: {
+        title: {
             en: "Hand-reared, game-farm or hacked bird",
             fr: "Oiseau élevé en captivité, élevé pour la chasse ou relâché",
         },
@@ -46,7 +48,7 @@ export const birdStatuses: BirdStatus[] = [
     },
     {
         code: 5,
-        description: {
+        title: {
             en: "Sick, Exhausted, Over-stressed, Injured, or Physical Deformity",
             fr: "Malade, épuisé, surmené, blessé ou difforme",
         },
@@ -57,7 +59,7 @@ export const birdStatuses: BirdStatus[] = [
     },
     {
         code: 7,
-        description: {
+        title: {
             en: "Rehabilitated and held",
             fr: "Réadapté et maintenu en captivité",
         },
@@ -68,7 +70,7 @@ export const birdStatuses: BirdStatus[] = [
     },
     {
         code: 8,
-        description: {
+        title: {
             en: "Held for longer than 24 hours for experimental or other purposes",
             fr: "Maintenu en captivité pendant plus de 24 heures à des fins expérimentales ou autres",
         },
