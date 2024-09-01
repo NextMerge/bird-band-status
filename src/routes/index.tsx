@@ -7,7 +7,7 @@ import BirdStatusSelect from "~/components/bird/BirdStatusSelect";
 
 export default function Home() {
     const [state, setState] = createStore({
-        birdStatus: defaultBirdStatus,
+        birdStatusCode: defaultBirdStatus.code,
         infoCodes: [] as AdditionalInformationCode[],
     });
 
