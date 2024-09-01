@@ -1,14 +1,14 @@
 import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
-import { AdditionalInformationCode } from "~/birding/additionalInformationCodes";
-import { defaultBirdStatus } from "~/birding/birdStatus";
+import { BirdStatusCode, defaultBirdStatus } from "~/birding/birdStatus";
+import { InfoCode } from "~/birding/infoCodes";
 import { BirdContext } from "~/components/bird/BirdContext";
 import BirdStatusSelect from "~/components/bird/BirdStatusSelect";
 
 export default function Home() {
     const [state, setState] = createStore({
-        birdStatusCode: defaultBirdStatus.code,
-        infoCodes: [] as AdditionalInformationCode[],
+        birdStatusCode: defaultBirdStatus as BirdStatusCode,
+        infoCodes: [] as InfoCode[],
     });
 
     return (

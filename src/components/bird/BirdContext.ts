@@ -1,11 +1,12 @@
 import { createContext } from "solid-js";
 import { createStore } from "solid-js/store/types/server.js";
-import { AdditionalInformationCode } from "~/birding/additionalInformationCodes";
+import { BirdStatusCode } from "~/birding/birdStatus";
+import { InfoCode } from "~/birding/infoCodes";
 
 type BirdContextType = ReturnType<
     typeof createStore<{
-        birdStatusCode: number;
-        infoCodes: AdditionalInformationCode[];
+        birdStatusCode: BirdStatusCode;
+        infoCodes: InfoCode[];
     }>
 >;
 

@@ -1,5 +1,9 @@
 import { useContext } from "solid-js";
-import { birdStatuses, defaultBirdStatus } from "~/birding/birdStatus";
+import {
+    BirdStatusCode,
+    birdStatuses,
+    defaultBirdStatus,
+} from "~/birding/birdStatus";
 import { BirdContext } from "~/components/bird/BirdContext";
 import {
     Select,
@@ -8,25 +12,26 @@ import {
     SelectTrigger,
     SelectValue,
 } from "~/components/ui/select";
+import { birdStatusLocale } from "~/locale/birdStatusLocale";
 import { LocaleContext } from "~/locale/LocaleContext";
 
 export default function BirdStatusSelect() {
     const [state, setState] = useContext(BirdContext);
     const [locale] = useContext(LocaleContext);
 
-    const selectOption = (option: number | null) => {
-        setState("birdStatusCode", option ?? defaultBirdStatus.code);
+    const selectOption = (option: BirdStatusCode | null) => {
+        setState("birdStatusCode", option ?? defaultBirdStatus);
     };
 
-    const getLabel = (code: number) => {
-        const status = birdStatuses.find((status) => status.code === code);
-        return `${code.toString()} - ${status?.title[locale()] ?? ""}`;
+    const getLabel = (code: BirdStatusCode) => {
+        const text = birdStatusLocale[code];
+        return `${code.toString()} - ${text.title[locale()]}`;
     };
 
     return (
         <Select
             value={state.birdStatusCode}
-            options={birdStatuses.map((status) => status.code)}
+            options={[...birdStatuses]}
             onChange={selectOption}
             itemComponent={(props) => (
                 <SelectItem item={props.item}>
@@ -35,7 +40,7 @@ export default function BirdStatusSelect() {
             )}
         >
             <SelectTrigger>
-                <SelectValue<number>>
+                <SelectValue<BirdStatusCode>>
                     {(state) => getLabel(state.selectedOption())}
                 </SelectValue>
             </SelectTrigger>

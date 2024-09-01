@@ -4,15 +4,13 @@ import globals from "globals";
 
 import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
+import solid from "eslint-plugin-solid/configs/typescript";
 import tseslint from "typescript-eslint";
-// @ts-expect-error idk why we need the extension here
-import solid from "eslint-plugin-solid/configs/typescript.js";
 
 export default tseslint.config(
     eslint.configs.recommended,
     ...tseslint.configs.strictTypeChecked,
     ...tseslint.configs.stylisticTypeChecked,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- likely due to the above
     solid,
     eslintConfigPrettier,
     {
@@ -26,6 +24,10 @@ export default tseslint.config(
             },
         },
         rules: {
+            eqeqeq: ["warn", "always"],
+            curly: "warn",
+            "no-console": "warn",
+            "no-debugger": "warn",
             "@typescript-eslint/consistent-type-definitions": ["error", "type"],
         },
     }
