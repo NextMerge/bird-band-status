@@ -5,7 +5,7 @@ export const commonLocale = {
     },
     meta: {
         title: {
-            en: "Bird Banding status code",
+            en: "Bird Banding Code Calculator",
             fr: "Code d'état de baguage d'oiseaux",
         },
         description: {
@@ -14,7 +14,7 @@ export const commonLocale = {
         },
     },
     header: {
-        en: "Bird Banding status code",
+        en: "Bird Banding status code calculator",
         fr: "Code d'état de baguage d'oiseaux",
     },
     headerSubtitle: {

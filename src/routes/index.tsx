@@ -20,10 +20,10 @@ export default function Home() {
         <main class="mx-auto p-4 text-center">
             <BirdContext.Provider value={[state, setState]}>
                 <div class="flex flex-col lg:flex-row">
-                    <div class={"lg:basis-2/3"}>
+                    <div class={"lg:max-w-[66%] lg:flex-shrink lg:basis-2/3"}>
                         <InfoCodeTabs />
                     </div>
-                    <div class="lg:block lg:basis-1/3">
+                    <div class="lg:block lg:min-w-[300px] lg:basis-1/3">
                         <div
                             class={
                                 "flex flex-col gap-10 pt-3 lg:sticky lg:top-0"

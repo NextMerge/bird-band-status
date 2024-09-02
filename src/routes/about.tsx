@@ -1,30 +1,39 @@
-import { A } from "@solidjs/router";
-import Counter from "~/components/Counter";
+import { useContext } from "solid-js";
+import { LocaleContext } from "~/locale/LocaleContext";
+import { commonLocale } from "~/locale/mainLocale";
 
 export default function About() {
+    const [locale] = useContext(LocaleContext);
     return (
-        <main class="mx-auto p-4 text-center text-gray-700">
-            <h1 class="max-6-xs my-16 text-6xl font-thin uppercase text-sky-700">
-                About Page
+        <main class="mx-auto p-4 text-center text-primary">
+            <h1 class="max-6-xs my-16 text-6xl font-thin uppercase text-sky-300">
+                {commonLocale.header[locale()]}
             </h1>
-            <Counter />
-            <p class="mt-8">
-                Visit{" "}
+            <p class="max-6-xs my-6 text-2xl font-thin">
+                {commonLocale.headerSubtitle[locale()]}{" "}
                 <a
-                    href="https://solidjs.com"
                     target="_blank"
                     class="text-sky-600 hover:underline"
+                    href="https://www.pwrc.usgs.gov/BBL/Bander_Portal/login/birdstatus.php"
                 >
-                    solidjs.com
-                </a>{" "}
-                to learn how to build Solid apps.
+                    https://www.pwrc.usgs.gov/BBL/Bander_Portal/login/birdstatus.php
+                </a>
             </p>
-            <p class="my-4">
-                <A href="/" class="text-sky-600 hover:underline">
-                    Home
-                </A>
-                {" - "}
-                <span>About Page</span>
+            <p class="text-2xl">
+                {commonLocale.sourceCode[locale()]}{" "}
+                <a
+                    target="_blank"
+                    class="text-sky-600 hover:underline"
+                    href="https://github.com/NextMerge/bird-band-status"
+                >
+                    https://github.com/NextMerge/bird-band-status
+                </a>
+            </p>
+            <p class="mt-6">
+                {commonLocale.featherSamplingsAndCloacalSwabsNotice[locale()]}
+            </p>
+            <p class="text-muted-foreground">
+                {commonLocale.headerNotice[locale()]}
             </p>
         </main>
     );
