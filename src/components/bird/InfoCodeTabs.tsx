@@ -16,7 +16,7 @@ export default function InfoCodeTabs() {
     const allCategories = ["All", ...infoCategories] as const;
 
     return (
-        <Tabs defaultValue="account" class="px-6">
+        <Tabs defaultValue="account" class="px-2 lg:px-6">
             <TabsList>
                 <For each={allCategories}>
                     {(category) => (

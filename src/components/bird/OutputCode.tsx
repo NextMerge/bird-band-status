@@ -56,14 +56,21 @@ export default function OutputCode() {
             </CardContent>
             <CardFooter>
                 <div class="flex w-full flex-col">
-                    <p class="text-left text-muted-foreground">
-                        {
+                    <Show
+                        when={
                             getInfoCodeText(outputCode(), locale())
                                 .longDescription
                         }
-                    </p>
+                    >
+                        <p class="text-left text-muted-foreground">
+                            {
+                                getInfoCodeText(outputCode(), locale())
+                                    .longDescription
+                            }
+                        </p>
+                    </Show>
                     <Show when={!isDefault()}>
-                        <p>
+                        <p class="mt-10">
                             <Button
                                 variant={"destructive"}
                                 onClick={() => {

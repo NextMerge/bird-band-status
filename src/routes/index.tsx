@@ -19,12 +19,16 @@ export default function Home() {
     return (
         <main class="mx-auto p-4 text-center">
             <BirdContext.Provider value={[state, setState]}>
-                <div class="flex flex-row">
-                    <div class={"basis-2/3"}>
+                <div class="flex flex-col lg:flex-row">
+                    <div class={"lg:basis-2/3"}>
                         <InfoCodeTabs />
                     </div>
-                    <div class="basis-1/3">
-                        <div class={"sticky top-0 flex flex-col gap-10 pt-3"}>
+                    <div class="lg:block lg:basis-1/3">
+                        <div
+                            class={
+                                "flex flex-col gap-10 pt-3 lg:sticky lg:top-0"
+                            }
+                        >
                             <BirdStatusSelect />
                             <OutputCode />
                         </div>
