@@ -1,4 +1,4 @@
-import { useContext } from "solid-js";
+import { createUniqueId, useContext } from "solid-js";
 import {
     BirdStatusCode,
     birdStatuses,
@@ -14,10 +14,12 @@ import {
 } from "~/components/ui/select";
 import { birdStatusLocale } from "~/locale/birdStatusLocale";
 import { LocaleContext } from "~/locale/LocaleContext";
+import { commonLocale } from "~/locale/mainLocale";
 
 export default function BirdStatusSelect() {
     const [state, setState] = useContext(BirdContext);
     const [locale] = useContext(LocaleContext);
+    const id = createUniqueId();
 
     const selectOption = (option: BirdStatusCode | null) => {
         setState("birdStatusCode", option ?? defaultBirdStatus);
@@ -30,6 +32,7 @@ export default function BirdStatusSelect() {
 
     return (
         <Select
+            id={id}
             value={state.birdStatusCode}
             options={[...birdStatuses]}
             onChange={selectOption}
@@ -39,6 +42,11 @@ export default function BirdStatusSelect() {
                 </SelectItem>
             )}
         >
+            <div class="pb-3">
+                <label for={id}>
+                    {commonLocale.selectStatusCode[locale()]}
+                </label>
+            </div>
             <SelectTrigger>
                 <SelectValue<BirdStatusCode>>
                     {(state) => getLabel(state.selectedOption())}

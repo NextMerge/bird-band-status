@@ -6,7 +6,7 @@ import { InfoCode } from "~/birding/infoCodes";
 type BirdContextType = ReturnType<
     typeof createStore<{
         birdStatusCode: BirdStatusCode;
-        infoCodes: InfoCode[];
+        infoCodesActive: { [key in InfoCode]: boolean };
     }>
 >;
 

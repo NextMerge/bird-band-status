@@ -15,8 +15,8 @@ export type AuxVariantInfoCode = (typeof auxVariantInfoCodes)[number];
 export function getAuxMarkerCodes(): InfoCode[] {
     return infoCodes.filter((code) => {
         return (
-            inputInfoCodes[code].category === "Visual Aux Marker" ||
-            inputInfoCodes[code].category === "Electronic Aux Marker"
+            inputInfoCodes[code].category === "VisualAuxMarker" ||
+            inputInfoCodes[code].category === "ElectronicAuxMarker"
         );
     });
 }
@@ -34,29 +34,29 @@ export const inputInfoCodes: {
     };
 } = {
     1: {
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
     },
     2: {
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
     },
     3: {
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
         canOnlyBeUsedWithBirdStatus: [3],
     },
     4: {
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
         canOnlyBeUsedWithBirdStatus: [3],
     },
     6: {
         auxiliaryVariant: 29,
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
     },
     7: {
         auxiliaryVariant: 30,
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
     },
     8: {
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
     },
     9: {
         auxiliaryVariant: 10,
@@ -86,11 +86,11 @@ export const inputInfoCodes: {
     },
     33: {
         auxiliaryVariant: 34,
-        category: "Capture Method",
+        category: "CaptureMethod",
         canNotBeUsedWithBirdStatus: [7],
     },
     39: {
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
     },
     40: {
         auxiliaryVariant: 41,
@@ -98,34 +98,34 @@ export const inputInfoCodes: {
         canOnlyBeUsedWithBirdStatus: [4, 5, 7],
     },
     51: {
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
     },
     59: {
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
     },
     69: {
-        category: "Visual Aux Marker",
+        category: "VisualAuxMarker",
     },
     70: {
         auxiliaryVariant: 71,
-        category: "Capture Method",
+        category: "CaptureMethod",
         canOnlyBeUsedWithBirdStatus: [2, 3, 5, 8],
     },
     75: {
-        category: "Electronic Aux Marker",
+        category: "ElectronicAuxMarker",
     },
     80: {
-        category: "Electronic Aux Marker",
+        category: "ElectronicAuxMarker",
     },
     81: {
-        category: "Electronic Aux Marker",
+        category: "ElectronicAuxMarker",
     },
     87: {
         auxiliaryVariant: 88,
-        category: "Capture Method",
+        category: "CaptureMethod",
         canNotBeUsedWithBirdStatus: [4],
     },
     90: {
-        category: "Electronic Aux Marker",
+        category: "ElectronicAuxMarker",
     },
 };

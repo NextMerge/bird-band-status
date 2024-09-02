@@ -29,6 +29,14 @@ export const commonLocale = {
         en: "NOTE: Feather sampling and cloacal swabs do not affect the status code.",
         fr: "REMARQUE: Les prélèvements de plumes et les écouvillons cloacaux n'ont pas d'incidence sur le code d'état.",
     },
+    shortDescriptionAuxPrefix: {
+        en: ", plus one or more auxiliary markers used",
+        fr: ", et l’oiseau porte un ou plusieurs marqueurs auxiliaires",
+    },
+    longDescriptionAuxPrefix: {
+        en: "All markers must be described in marker-related fields.",
+        fr: "Tous les marqueurs doivent être décrits dans les champs relatifs aux marqueurs.",
+    },
     sourceCode: {
         en: "Source code:",
         fr: "Code source :",
@@ -37,31 +45,9 @@ export const commonLocale = {
         en: "Select a status code:",
         fr: "Sélectionnez un code d'état:",
     },
-    error: {
-        unknown: {
-            en: "Something went wrong",
-            fr: "Quelque chose s'est mal passé",
-        },
-        mismatchCodes: {
-            en: 'Status code "{{statusCode}}" is not valid with info code "{{infoCode}}":',
-            fr: 'Le code d\'état "{{statusCode}}" n\'est pas valide avec le code de renseignements complémentaires  "{{infoCode}}" :',
-        },
-        infoCodeDoesNotInclude: {
-            en: "Info code does not include the given status code",
-            fr: "Le code de renseignements complémentaires n'inclut pas le code d'état donné",
-        },
-        infoCodeExcludes: {
-            en: "Info code excludes the given status code",
-            fr: "Le code de renseignements complémentaires exclut le code d'état donné",
-        },
-    },
-    showDescription: {
-        en: "Show description",
-        fr: "Afficher la description",
-    },
-    hideDescription: {
-        en: "Hide description",
-        fr: "Masquer la description",
+    outputCode: {
+        en: "Output code:",
+        fr: "Code de sortie :",
     },
     clearSelections: {
         en: "Clear selections",

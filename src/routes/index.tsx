@@ -1,42 +1,36 @@
-import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { BirdStatusCode, defaultBirdStatus } from "~/birding/birdStatus";
-import { InfoCode } from "~/birding/infoCodes";
+import { InfoCode, infoCodes } from "~/birding/infoCodes";
 import { BirdContext } from "~/components/bird/BirdContext";
 import BirdStatusSelect from "~/components/bird/BirdStatusSelect";
+import InfoCodeTabs from "~/components/bird/InfoCodeTabs";
+import OutputCode from "~/components/bird/OutputCode";
 
 export default function Home() {
     const [state, setState] = createStore({
         birdStatusCode: defaultBirdStatus as BirdStatusCode,
-        infoCodes: [] as InfoCode[],
+        infoCodesActive: infoCodes.reduce((acc, code) => {
+            // @ts-expect-error - Untyped reducer builder
+            acc[code] = false;
+            return acc;
+        }, {}) as { [key in InfoCode]: boolean },
     });
 
     return (
         <main class="mx-auto p-4 text-center">
-            <h1 class="max-6-xs my-16 text-6xl font-thin uppercase text-sky-300">
-                Hello world!
-            </h1>
             <BirdContext.Provider value={[state, setState]}>
-                <BirdStatusSelect />
+                <div class="flex flex-row">
+                    <div class={"basis-2/3"}>
+                        <InfoCodeTabs />
+                    </div>
+                    <div class="basis-1/3">
+                        <div class={"sticky top-0 flex flex-col gap-10 pt-3"}>
+                            <BirdStatusSelect />
+                            <OutputCode />
+                        </div>
+                    </div>
+                </div>
             </BirdContext.Provider>
-            <p class="mt-8">
-                Visit{" "}
-                <a
-                    href="https://solidjs.com"
-                    target="_blank"
-                    class="text-sky-300 hover:underline"
-                >
-                    solidjs.com
-                </a>{" "}
-                to learn how to build Solid apps.
-            </p>
-            <p class="my-4">
-                <span>Home</span>
-                {" - "}
-                <A href="/about" class="text-sky-300 hover:underline">
-                    About Page
-                </A>{" "}
-            </p>
         </main>
     );
 }

@@ -1,8 +1,8 @@
 export const infoCategories = [
     "Sample",
-    "Capture Method",
-    "Visual Aux Marker",
-    "Electronic Aux Marker",
+    "CaptureMethod",
+    "VisualAuxMarker",
+    "ElectronicAuxMarker",
     "Other",
 ] as const;
 
