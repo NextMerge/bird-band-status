@@ -4,11 +4,11 @@
         "node": ">=18"
     },
     "scripts": {
-        "build": "bun --bun vinxi build",
+        "build": "vinxi build",
         "cspell": "cspell '**'",
-        "dev": "vinxi dev",
+        "dev": "bun --bun vinxi dev",
         "prepare": "husky",
-        "start": "vinxi start"
+        "start": "bun --bun vinxi start"
     },
     "dependencies": {
         "@corvu/drawer": "^0.2.2",
