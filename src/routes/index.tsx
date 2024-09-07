@@ -5,6 +5,7 @@ import { BirdContext } from "~/components/bird/BirdContext";
 import BirdStatusSelect from "~/components/bird/BirdStatusSelect";
 import InfoCodeTabs from "~/components/bird/InfoCodeTabs";
 import OutputCode from "~/components/bird/OutputCode";
+import OutputCodeSmallScreen from "~/components/bird/OutputCodeSmallScreen";
 
 export default function Home() {
     const [state, setState] = createStore({
@@ -17,21 +18,32 @@ export default function Home() {
     });
 
     return (
-        <main class="mx-auto p-4 text-center">
+        <main class="mx-4 mt-4 text-center">
             <BirdContext.Provider value={[state, setState]}>
-                <div class="flex flex-col lg:flex-row">
-                    <div class={"lg:max-w-[66%] lg:flex-shrink lg:basis-2/3"}>
-                        <InfoCodeTabs />
-                    </div>
-                    <div class="lg:block lg:min-w-[300px] lg:basis-1/3">
+                <div class="hidden lg:block">
+                    <div class="flex flex-col lg:flex-row">
                         <div
-                            class={
-                                "flex flex-col gap-10 pt-3 lg:sticky lg:top-0"
-                            }
+                            class={"lg:max-w-[66%] lg:flex-shrink lg:basis-2/3"}
                         >
-                            <BirdStatusSelect />
-                            <OutputCode />
+                            <InfoCodeTabs />
                         </div>
+                        <div class="lg:block lg:min-w-[300px] lg:basis-1/3">
+                            <div
+                                class={
+                                    "flex flex-col gap-10 pt-3 lg:sticky lg:top-0"
+                                }
+                            >
+                                <BirdStatusSelect />
+                                <OutputCode />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-8 lg:hidden">
+                    <BirdStatusSelect />
+                    <InfoCodeTabs />
+                    <div class="sticky bottom-0">
+                        <OutputCodeSmallScreen />
                     </div>
                 </div>
             </BirdContext.Provider>

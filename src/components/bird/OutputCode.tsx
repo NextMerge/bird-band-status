@@ -1,10 +1,6 @@
 import { Show, useContext } from "solid-js";
-import { produce } from "solid-js/store";
-import { defaultBirdStatus } from "~/birding/birdStatus";
-import { computeOutputInfoCode } from "~/birding/computeOutputInfoCode";
-import { getInfoCodeText } from "~/birding/getInfoCodeText";
-import { infoCodes } from "~/birding/infoCodes";
 import { BirdContext } from "~/components/bird/BirdContext";
+import { createOutputCodeSignal } from "~/components/bird/outputCodeSignal";
 import { Button } from "~/components/ui/button";
 import {
     Card,
@@ -18,27 +14,10 @@ import { commonLocale } from "~/locale/mainLocale";
 
 export default function OutputCode() {
     const [locale] = useContext(LocaleContext);
-    const [state, setState] = useContext(BirdContext);
+    const [state] = useContext(BirdContext);
 
-    const outputCode = () =>
-        computeOutputInfoCode(
-            infoCodes.filter((code) => state.infoCodesActive[code])
-        );
-
-    const isDefault = () => {
-        return state.birdStatusCode === defaultBirdStatus && outputCode() === 0;
-    };
-
-    const clearSelections = () => {
-        setState(
-            produce((prev) => {
-                prev.birdStatusCode = defaultBirdStatus;
-                for (const code of infoCodes) {
-                    prev.infoCodesActive[code] = false;
-                }
-            })
-        );
-    };
+    const { outputCode, isDefault, clearSelections, infoCodeText } =
+        createOutputCodeSignal();
 
     return (
         <Card class="bg-muted">
@@ -50,23 +29,13 @@ export default function OutputCode() {
                     {state.birdStatusCode.toString()}
                     {outputCode().toString().padStart(2, "0")}
                 </p>
-                <p>
-                    {getInfoCodeText(outputCode(), locale()).shortDescription}
-                </p>
+                <p>{infoCodeText().shortDescription}</p>
             </CardContent>
             <CardFooter>
                 <div class="flex w-full flex-col">
-                    <Show
-                        when={
-                            getInfoCodeText(outputCode(), locale())
-                                .longDescription
-                        }
-                    >
+                    <Show when={infoCodeText().longDescription}>
                         <p class="text-left text-muted-foreground">
-                            {
-                                getInfoCodeText(outputCode(), locale())
-                                    .longDescription
-                            }
+                            {infoCodeText().longDescription}
                         </p>
                     </Show>
                     <Show when={!isDefault()}>

@@ -1,4 +1,5 @@
 clsx
+corvu
 kobalte
 lockb
 solidjs

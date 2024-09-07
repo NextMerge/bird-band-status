@@ -1,17 +1,17 @@
 {
-    "name": "example-with-tailwindcss",
     "type": "module",
     "engines": {
         "node": ">=18"
     },
     "scripts": {
-        "build": "vinxi build",
+        "build": "bun --bun vinxi build",
         "cspell": "cspell '**'",
         "dev": "vinxi dev",
         "prepare": "husky",
         "start": "vinxi start"
     },
     "dependencies": {
+        "@corvu/drawer": "^0.2.2",
         "@kobalte/core": "^0.13.6",
         "@solidjs/meta": "^0.29.4",
         "@solidjs/router": "^0.14.3",
