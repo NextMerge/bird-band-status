@@ -37,7 +37,7 @@ export default function OutputCodeSmallScreen() {
             >
                 {codeItself()}
             </DrawerTrigger>
-            <DrawerContent>
+            <DrawerContent class="p-4">
                 <DrawerHeader>{commonLocale.outputCode[locale()]}</DrawerHeader>
                 <div class="text-center text-[6rem]">{codeItself()}</div>
                 <DrawerLabel>{infoCodeText().shortDescription}</DrawerLabel>
