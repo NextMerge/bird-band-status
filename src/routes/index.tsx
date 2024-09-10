@@ -18,7 +18,7 @@ export default function Home() {
     });
 
     return (
-        <main class="mx-4 mt-4 text-center">
+        <main class="container mx-auto px-4 pt-4 text-center">
             <BirdContext.Provider value={[state, setState]}>
                 <div class="hidden lg:block">
                     <div class="flex flex-col lg:flex-row">
