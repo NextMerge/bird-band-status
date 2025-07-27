@@ -1,52 +1,39 @@
-import { createStore } from "solid-js/store";
-import { BirdStatusCode, defaultBirdStatus } from "~/birding/birdStatus";
-import { InfoCode, infoCodes } from "~/birding/infoCodes";
-import { BirdContext } from "~/components/bird/BirdContext";
-import BirdStatusSelect from "~/components/bird/BirdStatusSelect";
-import InfoCodeTabs from "~/components/bird/InfoCodeTabs";
-import OutputCode from "~/components/bird/OutputCode";
-import OutputCodeSmallScreen from "~/components/bird/OutputCodeSmallScreen";
+import { createFileRoute } from "@tanstack/react-router";
+import logo from "../logo.svg";
 
-export default function Home() {
-    const [state, setState] = createStore({
-        birdStatusCode: defaultBirdStatus as BirdStatusCode,
-        infoCodesActive: infoCodes.reduce((acc, code) => {
-            // @ts-expect-error - Untyped reducer builder
-            acc[code] = false;
-            return acc;
-        }, {}) as { [key in InfoCode]: boolean },
-    });
+export const Route = createFileRoute("/")({
+  component: App,
+});
 
-    return (
-        <main class="container mx-auto px-4 pt-4 text-center">
-            <BirdContext.Provider value={[state, setState]}>
-                <div class="hidden lg:block">
-                    <div class="flex flex-col lg:flex-row">
-                        <div
-                            class={"lg:max-w-[66%] lg:flex-shrink lg:basis-2/3"}
-                        >
-                            <InfoCodeTabs />
-                        </div>
-                        <div class="lg:block lg:min-w-[300px] lg:basis-1/3">
-                            <div
-                                class={
-                                    "flex flex-col gap-10 pt-3 lg:sticky lg:top-0"
-                                }
-                            >
-                                <BirdStatusSelect />
-                                <OutputCode />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-8 lg:hidden">
-                    <BirdStatusSelect />
-                    <InfoCodeTabs />
-                    <div class="sticky bottom-0">
-                        <OutputCodeSmallScreen />
-                    </div>
-                </div>
-            </BirdContext.Provider>
-        </main>
-    );
+function App() {
+  return (
+    <div className="text-center">
+      <header className="flex min-h-screen flex-col items-center justify-center bg-[#282c34] text-[calc(10px+2vmin)] text-white">
+        <img
+          src={logo}
+          className="pointer-events-none h-[40vmin] animate-[spin_20s_linear_infinite]"
+          alt="logo"
+        />
+        <p>
+          Edit <code>src/routes/index.tsx</code> and save to reload.
+        </p>
+        <a
+          className="text-[#61dafb] hover:underline"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+        <a
+          className="text-[#61dafb] hover:underline"
+          href="https://tanstack.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn TanStack
+        </a>
+      </header>
+    </div>
+  );
 }
