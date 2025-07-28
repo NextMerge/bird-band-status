@@ -1,15 +1,25 @@
 import { Notice } from "@/components/Notice";
 import { Tile } from "@/components/Tile";
+import { Button } from "@/components/ui/button";
 import { env } from "@/env";
-import { useRouteContext } from "@tanstack/react-router";
+import { useRouteContext, useRouter } from "@tanstack/react-router";
+import { metaLocale } from "../locale/metaLocale";
 
 export function BirdStatusHeader() {
-  const { getText, t } = useRouteContext({ from: "/" });
+  const { getText, t, language } = useRouteContext({ from: "/" });
+  const router = useRouter();
+
+  const switchLanguage = async () => {
+    const newLanguage = language === "en" ? "fr" : "en";
+    localStorage.setItem("locale", newLanguage);
+    await router.invalidate();
+  };
+
   return (
     <Tile className="h-full p-6">
       <div className="space-y-4 break-words">
         <h1 className="font-bold">
-          {getText(t.common.header.headerTitle)}
+          {getText(t.header.headerTitle)}{" "}
           <a
             href={env.VITE_BIRD_STATUS_URL}
             className="inline-flex text-emerald-300 underline decoration-emerald-300/50 underline-offset-2 transition-colors duration-200 hover:text-emerald-200 hover:decoration-emerald-200"
@@ -33,12 +43,10 @@ export function BirdStatusHeader() {
           </a>
         </h1>
         <Notice>
-          {getText(t.common.header.featherSamplingsAndCloacalSwabsNotice)}
+          {getText(t.header.featherSamplingsAndCloacalSwabsNotice)}
         </Notice>
         <div className="flex justify-center gap-2 text-sm">
-          <span className="text-gray-300">
-            {getText(t.common.header.madeBy)}
-          </span>
+          <span className="text-gray-300">{getText(t.header.madeBy)}</span>
           <span className="text-gray-500">•</span>
           <a
             href={env.VITE_SOURCE_CODE_URL}
@@ -46,7 +54,7 @@ export function BirdStatusHeader() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {getText(t.common.header.sourceCode)}
+            {getText(t.header.sourceCode)}
             <svg
               className="ml-1 h-3 w-3"
               fill="none"
@@ -61,6 +69,18 @@ export function BirdStatusHeader() {
               />
             </svg>
           </a>
+        </div>
+        <div className="flex justify-center">
+          <Button
+            onClick={() => void switchLanguage()}
+            variant="outline"
+            size="sm"
+            className="text-xs"
+          >
+            {language === "en"
+              ? metaLocale.languages.fr
+              : metaLocale.languages.en}
+          </Button>
         </div>
       </div>
     </Tile>
