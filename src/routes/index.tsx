@@ -68,7 +68,7 @@ function App() {
   };
 
   return (
-    <main className="grid min-h-dvh grid-cols-[1fr_400px] gap-6 p-6">
+    <main className="grid min-h-svh grid-cols-[1fr_400px] gap-6 p-6">
       <div className="col-span-1">
         <InfoCodesTable
           filter={filter}
@@ -79,7 +79,7 @@ function App() {
         />
       </div>
 
-      <div className="sticky top-6 col-span-1 flex h-[calc(100vh-3rem)] flex-col gap-6">
+      <div className="sticky top-6 col-span-1 flex h-full flex-col gap-6">
         <div className="flex-shrink-0">
           <BirdStatusHeader />
         </div>
