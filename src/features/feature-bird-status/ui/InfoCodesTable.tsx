@@ -71,10 +71,10 @@ export function InfoCodesTable(props: InfoCodesTableProps) {
             props.onFilterChange(value as InfoCategory | "All");
           }}
         >
-          <TabsList className="grid w-full grid-cols-6 rounded-lg border border-slate-700/50 bg-slate-800/60 p-1 backdrop-blur-sm">
+          <TabsList className="flex h-auto flex-wrap justify-start gap-1 rounded-lg border border-slate-700/50 bg-slate-800/60 p-2 backdrop-blur-sm">
             <TabsTrigger
               value="All"
-              className="rounded-md px-3 py-2 text-sm font-medium text-slate-300 transition-all duration-200 hover:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg"
+              className="rounded-md px-4 py-2 text-sm font-medium whitespace-nowrap text-slate-300 transition-all duration-200 hover:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg"
             >
               All
             </TabsTrigger>
@@ -82,7 +82,7 @@ export function InfoCodesTable(props: InfoCodesTableProps) {
               <TabsTrigger
                 key={category}
                 value={category}
-                className="rounded-md px-3 py-2 text-sm font-medium text-slate-300 transition-all duration-200 hover:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg"
+                className="rounded-md px-4 py-2 text-sm font-medium whitespace-nowrap text-slate-300 transition-all duration-200 hover:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg"
               >
                 {getText(t.common.category[category])}
               </TabsTrigger>
