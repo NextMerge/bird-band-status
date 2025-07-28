@@ -13,12 +13,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(
     135deg,
-    #1e1b4b 0%,
-    #312e81 25%,
-    #1e40af 50%,
-    #3730a3 75%,
-    #1e1b4b 100%
+    #0f0f23 0%,
+    #1a1a2e 25%,
+    #16213e 50%,
+    #1a1a2e 75%,
+    #0f0f23 100%
   );
+  background-color: #0f0f23;
   min-height: 100vh;
 }
 
