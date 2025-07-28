@@ -11,7 +11,14 @@ import "./styles.css";
 // Create a new router instance
 const router = createRouter({
   routeTree,
-  context: {},
+  context: {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    language: undefined!,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    getText: undefined!,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    t: undefined!,
+  },
   defaultPreload: "intent",
   scrollRestoration: true,
   defaultStructuralSharing: true,

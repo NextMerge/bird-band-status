@@ -11,6 +11,15 @@ body {
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(
+    135deg,
+    #1e1b4b 0%,
+    #312e81 25%,
+    #1e40af 50%,
+    #3730a3 75%,
+    #1e1b4b 100%
+  );
+  min-height: 100vh;
 }
 
 code {
@@ -133,6 +142,6 @@ code {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 }
