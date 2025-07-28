@@ -1,5 +1,5 @@
 {
-  "background_color": "#ffffff",
+  "background_color": "#0f0f23",
   "display": "standalone",
   "icons": [
     {
@@ -18,8 +18,8 @@
       "type": "image/png"
     }
   ],
-  "name": "Create TanStack App Sample",
-  "short_name": "TanStack App",
+  "name": "Bird Banding Code Calculator",
+  "short_name": "Bird Banding Code Calculator",
   "start_url": ".",
-  "theme_color": "#000000"
+  "theme_color": "#0f0f23"
 }
