@@ -68,7 +68,7 @@ function App() {
   };
 
   return (
-    <main className="grid min-h-screen grid-cols-[1fr_400px] gap-6 p-6">
+    <main className="grid min-h-dhv grid-cols-[1fr_400px] gap-6 p-6">
       <div className="col-span-1">
         <InfoCodesTable
           filter={filter}
