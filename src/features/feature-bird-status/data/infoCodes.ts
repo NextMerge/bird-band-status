@@ -1,5 +1,5 @@
-import type { BirdStatusCode } from "@/birding/birdStatus";
-import type { InfoCategory } from "@/birding/infoCategories";
+import type { BirdStatusCode } from "@/features/feature-bird-status/data/birdStatus";
+import type { InfoCategory } from "@/features/feature-bird-status/data/infoCategories";
 
 export const infoCodes = [
   1, 2, 3, 4, 6, 7, 8, 9, 11, 14, 16, 18, 20, 33, 39, 40, 51, 59, 69, 70, 75,

@@ -6,7 +6,7 @@ import {
   inputInfoCodes,
   miscellaneous,
   twoOrMoreTypesOfAuxiliaryMarkers,
-} from "@/birding/infoCodes";
+} from "@/features/feature-bird-status/data/infoCodes";
 
 export function computeOutputInfoCode(
   inputCodes: InfoCode[],

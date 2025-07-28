@@ -1,4 +1,4 @@
-import type { BirdStatusCode } from "@/birding/birdStatus";
+import type { BirdStatusCode } from "@/features/feature-bird-status/data/birdStatus";
 
 export const birdStatusLocale: Record<
   BirdStatusCode,

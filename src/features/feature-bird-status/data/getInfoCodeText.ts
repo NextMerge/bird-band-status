@@ -1,12 +1,12 @@
+import { infoCodeLocale } from "@/features/feature-bird-status/data/infoCodeLocale";
 import {
   type AuxVariantInfoCode,
   auxVariantInfoCodes,
   type InfoCode,
   infoCodes,
   inputInfoCodes,
-} from "@/birding/infoCodes";
-import { infoCodeLocale } from "@/locale/infoCodeLocale";
-import { commonLocale } from "@/locale/mainLocale";
+} from "@/features/feature-bird-status/data/infoCodes";
+import { commonLocale } from "@/features/feature-bird-status/data/mainLocale";
 
 export function getInfoCodeText(
   code: InfoCode | AuxVariantInfoCode | 0 | 25 | 85,

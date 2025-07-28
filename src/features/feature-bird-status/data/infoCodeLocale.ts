@@ -1,4 +1,4 @@
-import type { InfoCode } from "@/birding/infoCodes";
+import type { InfoCode } from "@/features/feature-bird-status/data/infoCodes";
 
 export const infoCodeLocale: Record<
   InfoCode | 0 | 25 | 85,

@@ -8,13 +8,13 @@ export const commonLocale = {
       en: "Code",
       fr: "Code",
     },
-    shortDescription: {
-      en: "Short Description",
-      fr: "Description courte",
+    description: {
+      en: "Description",
+      fr: "Description",
     },
-    longDescription: {
-      en: "Long Description",
-      fr: "Description longue",
+    definition: {
+      en: "Definition",
+      fr: "Définition",
     },
   },
   meta: {
@@ -27,27 +27,27 @@ export const commonLocale = {
       fr: "Calcule le code de la base de données de baguage d'oiseaux pour l'état d'un oiseau",
     },
   },
-  aboutSection: {
-    header: {
-      en: "Bird Banding status code calculator",
-      fr: "Code d'état de baguage d'oiseaux",
-    },
-    headerSubtitle: {
-      en: "Computes the codes from:",
-      fr: "Calcule les codes à partir de :",
+  header: {
+    headerTitle: {
+      en: "Compute the bird banding status code for",
+      fr: "Calcule le code d'état de baguage d'oiseaux pour",
     },
     headerNotice: {
       en: "This tool is not affiliated with the USGS Bird Banding Lab or the CWS Bird Banding Office.",
       fr: "Cet outil n'est pas affilié au USGS Bird Banding Lab ou au Bureau de baguage des oiseaux du SCF.",
     },
     sourceCode: {
-      en: "Source code:",
-      fr: "Code source :",
+      en: "Source code",
+      fr: "Code source",
     },
-  },
-  featherSamplingsAndCloacalSwabsNotice: {
-    en: "NOTE: Feather sampling and cloacal swabs do not affect the status code.",
-    fr: "REMARQUE: Les prélèvements de plumes et les écouvillons cloacaux n'ont pas d'incidence sur le code d'état.",
+    madeBy: {
+      en: "Made with ❤️ by someone",
+      fr: "Fait avec ❤️ par quelqu'un",
+    },
+    featherSamplingsAndCloacalSwabsNotice: {
+      en: "NOTE: Feather sampling and cloacal swabs do not affect the status code.",
+      fr: "REMARQUE: Les prélèvements de plumes et les écouvillons cloacaux n'ont pas d'incidence sur le code d'état.",
+    },
   },
   shortDescriptionAuxPrefix: {
     en: ", plus one or more auxiliary markers used",

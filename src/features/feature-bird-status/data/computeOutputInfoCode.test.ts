@@ -1,9 +1,9 @@
-import { computeOutputInfoCode } from "@/birding/computeOutputInfoCode";
+import { computeOutputInfoCode } from "@/features/feature-bird-status/data/computeOutputInfoCode";
 import {
   defaultAddCode,
   miscellaneous,
   twoOrMoreTypesOfAuxiliaryMarkers,
-} from "@/birding/infoCodes";
+} from "@/features/feature-bird-status/data/infoCodes";
 import { describe, expect, it } from "vitest";
 
 describe("computeOutputInformation()", () => {

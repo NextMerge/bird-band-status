@@ -2,6 +2,7 @@
   "name": "bird-banding",
   "type": "module",
   "private": true,
+  "packageManager": "pnpm@10.13.1",
   "scripts": {
     "build": "vite build && tsc",
     "dev": "vite --port 3000",

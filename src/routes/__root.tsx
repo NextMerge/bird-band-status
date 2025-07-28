@@ -1,9 +1,9 @@
 import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
-import { birdStatusLocale } from "@/locale/birdStatusLocale";
-import { infoCodeLocale } from "@/locale/infoCodeLocale";
-import { commonLocale } from "@/locale/mainLocale";
+import { birdStatusLocale } from "@/features/feature-bird-status/data/birdStatusLocale";
+import { infoCodeLocale } from "@/features/feature-bird-status/data/infoCodeLocale";
+import { commonLocale } from "@/features/feature-bird-status/data/mainLocale";
 
 type RootRouteContext = {
   language: "en" | "fr";
