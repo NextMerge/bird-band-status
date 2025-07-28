@@ -25,8 +25,6 @@ export function OutputCalculator(props: OutputCalculatorProps) {
         onClearInfoCodes={props.onClearInfoCodes}
         outputStatusCode={props.outputStatusCode}
         outputInfoCode={props.outputInfoCode}
-        showTooltip={true}
-        codeSize="large"
       />
     </Tile>
   );
