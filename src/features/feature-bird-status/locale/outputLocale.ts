@@ -27,4 +27,8 @@ export const outputLocale = {
     en: "No active info codes",
     fr: "Aucun code d'info actif",
   },
+  closeDrawer: {
+    en: "Close",
+    fr: "Fermer",
+  },
 };

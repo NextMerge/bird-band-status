@@ -1,0 +1,750 @@
+                // Add visual feedback to the parent status item
+                const statusItem = this.closest('.status-item');
+                if (this.checked) {
+                    statusItem.style.borderColor = 'var(--primary-purple)';<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avian Research Station - Bird Banding Interface</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-purple: #a855f7;
+            --secondary-purple: #7c3aed;
+            --accent-red: #ef4444;
+            --primary-red: #dc2626;
+            --dark-bg: #0f0a14;
+            --darker-bg: #0a0610;
+            --card-bg: #1a1420;
+            --border-color: #2d1b3d;
+            --text-primary: #ffffff;
+            --text-secondary: #e5e7eb;
+            --text-muted: #a78bfa;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background: 
+                linear-gradient(135deg, 
+                    rgba(26, 20, 32, 0.95) 0%, 
+                    rgba(20, 16, 28, 0.98) 50%, 
+                    rgba(15, 10, 20, 0.99) 100%);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(168, 85, 247, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-red));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-left {
+            display: flex;
+            gap: 32px;
+            margin-left: 48px;
+        }
+        
+        .nav-left a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-left a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--accent-red));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-left a:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-left a:hover::after {
+            width: 100%;
+        }
+        
+        .language-btn {
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            box-shadow: 
+                0 4px 14px rgba(168, 85, 247, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .language-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 25px rgba(168, 85, 247, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 80px);
+            gap: 1px;
+            background: var(--border-color);
+        }
+        
+        .left-panel {
+            flex: 1;
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tabs-container {
+            background: 
+                linear-gradient(135deg, 
+                    rgba(26, 20, 32, 0.8) 0%, 
+                    rgba(20, 16, 28, 0.9) 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 24px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .tab {
+            padding: 16px 24px;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(220, 38, 38, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .tab:hover::before {
+            opacity: 1;
+        }
+        
+        .tab.active {
+            background: 
+                linear-gradient(135deg, 
+                    rgba(168, 85, 247, 0.15) 0%, 
+                    rgba(124, 58, 237, 0.1) 100%);
+            color: var(--text-primary);
+            box-shadow: 
+                inset 0 -3px 0 var(--primary-purple),
+                0 4px 12px rgba(168, 85, 247, 0.3);
+        }
+        
+        .tab:hover:not(.active) {
+            color: var(--text-secondary);
+        }
+        
+        .status-list {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+            background: 
+                radial-gradient(circle at top left, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+                var(--card-bg);
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding: 20px;
+            background: 
+                linear-gradient(135deg, 
+                    rgba(30, 25, 35, 0.6) 0%, 
+                    rgba(24, 19, 29, 0.8) 100%);
+            border: 1px solid rgba(45, 27, 61, 0.5);
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(220, 38, 38, 0.04));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .status-item:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.3),
+                0 4px 12px rgba(168, 85, 247, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .status-item:hover::before {
+            opacity: 1;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 16px;
+            margin-top: 4px;
+            accent-color: var(--primary-purple);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .checkbox:hover {
+            transform: scale(1.1);
+        }
+        
+        .status-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .status-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        
+        .status-description {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 13px;
+        }
+        
+        .right-panel {
+            width: 400px;
+            background: 
+                radial-gradient(circle at top right, rgba(168, 85, 247, 0.08) 0%, transparent 60%),
+                linear-gradient(180deg, 
+                    rgba(26, 20, 32, 0.95) 0%, 
+                    rgba(20, 16, 28, 0.98) 50%, 
+                    rgba(15, 10, 20, 0.99) 100%);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-selector {
+            width: 100%;
+            margin-bottom: 60px;
+        }
+        
+        .selector-label {
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .dropdown {
+            width: 100%;
+            padding: 16px 20px;
+            background: 
+                linear-gradient(135deg, 
+                    rgba(30, 25, 35, 0.8) 0%, 
+                    rgba(20, 16, 28, 0.9) 100%);
+            border: 1px solid rgba(45, 27, 61, 0.8);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 500;
+            appearance: none;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 
+                0 0 0 3px rgba(168, 85, 247, 0.2),
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .output-section {
+            text-align: center;
+            width: 100%;
+        }
+        
+        .output-label {
+            color: var(--text-secondary);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--text-secondary), var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .output-display {
+            background: 
+                radial-gradient(circle at center, rgba(168, 85, 247, 0.12) 0%, transparent 70%),
+                linear-gradient(135deg, 
+                    rgba(30, 25, 35, 0.6) 0%, 
+                    rgba(20, 16, 28, 0.8) 100%);
+            border: 2px solid rgba(45, 27, 61, 0.8);
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .output-code {
+            font-size: 140px;
+            font-weight: 300;
+            color: var(--text-primary);
+            font-family: 'Inter', monospace;
+            letter-spacing: -8px;
+            text-shadow: 
+                0 0 30px rgba(255, 255, 255, 0.1),
+                0 0 60px rgba(168, 85, 247, 0.2),
+                0 0 90px rgba(220, 38, 38, 0.1);
+            line-height: 1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .output-description {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .bird-decoration {
+            position: fixed;
+            top: 20%;
+            right: -10%;
+            width: 200px;
+            height: 200px;
+            opacity: 0.03;
+            transform: rotate(15deg);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Custom scrollbar */
+        .status-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .status-list::-webkit-scrollbar-track {
+            background: rgba(45, 36, 36, 0.3);
+            border-radius: 3px;
+        }
+        
+        .status-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-red));
+            border-radius: 3px;
+        }
+        
+        .status-list::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--secondary-purple), var(--primary-purple));
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .status-item {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        .status-item:nth-child(even) {
+            animation-delay: 0.1s;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .main-container {
+                max-width: 100%;
+                margin: 0;
+            }
+            
+            .right-panel {
+                width: 350px;
+                padding: 30px;
+            }
+            
+            .output-code {
+                font-size: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bird-decoration">
+        🦅
+    </div>
+    
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🐦</div>
+                <div class="logo-text">Avian Research Station</div>
+                <div class="nav-left">
+                    <a href="#">Research Hub</a>
+                    <a href="#">Data Analytics</a>
+                    <a href="#">Field Guide</a>
+                </div>
+            </div>
+            <a href="#" class="language-btn">Français</a>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="left-panel">
+            <div class="tabs-container">
+                <div class="tabs">
+                    <div class="tab active">All Protocols</div>
+                    <div class="tab">Sample Collection</div>
+                    <div class="tab">Capture Methods</div>
+                    <div class="tab">Visual Markers</div>
+                    <div class="tab">Electronic Tags</div>
+                    <div class="tab">Specialized</div>
+                </div>
+            </div>
+            
+            <div class="status-list">
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status01">
+                    <div class="status-content">
+                        <div class="status-title">01 - Colored Leg Band: Plastic, Metal, Paint, Tape</div>
+                        <div class="status-description">Colored leg band(s) of plastic or metal - This applies to painted or anodized Federal bands as well as colored tape over bands. Note: two metal bands should never be used on the same tarsus.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status02">
+                    <div class="status-content">
+                        <div class="status-title">02 - Neck Collar - Usually Coded</div>
+                        <div class="status-description">Neck collar - Collar codes and colors must be reported in marker-related fields.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status03">
+                    <div class="status-content">
+                        <div class="status-title">03 - Reward Band (Federal or State)</div>
+                        <div class="status-description">Special reward bands used in recovery studies to incentivize public reporting of banded birds.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status04">
+                    <div class="status-content">
+                        <div class="status-title">04 - Control Band (Reward Band Studies Only)</div>
+                        <div class="status-description">Control band - For use in conjunction with reward band studies only.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status06">
+                    <div class="status-content">
+                        <div class="status-title">06 - Miscellaneous Metal Band with Contact Information</div>
+                        <div class="status-description">Metal bands with an additional address or telephone number, including State or Provincial bands, private organizations bands, and rarely banders. Explanation must be given in the Remarks field.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status07">
+                    <div class="status-content">
+                        <div class="status-title">07 - Double-Banded (Two Federal Bands Simultaneously)</div>
+                        <div class="status-description">Two Federal bands placed on a bird at the same time. One Federal band on each tarsus --- two metal bands cannot be used on the same tarsus. This code does not apply to a bird to whom a second band was added at a subsequent encounter.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status08">
+                    <div class="status-content">
+                        <div class="status-title">08 - Temporary Markers: Paint, Dye, Feather Modifications</div>
+                        <div class="status-description">Temporary markers - Any part of bird painted or dyed, or other temporary markers on feathers (e.g., imping, tail streamers, etc.).</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status09">
+                    <div class="status-content">
+                        <div class="status-title">09 - Flight Feathers Clipped or Pulled Upon Release</div>
+                        <div class="status-description">All flight feathers on one or both wings clipped or pulled upon release for temporary flight restriction.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status11">
+                    <div class="status-content">
+                        <div class="status-title">11 - Sexed by Laparotomy or Laparoscopy</div>
+                        <div class="status-description">Surgical sexing procedures performed for species where external sexing is not reliable.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status14">
+                    <div class="status-content">
+                        <div class="status-title">14 - Oral Swab Sample Collected</div>
+                        <div class="status-description">Mouth swab collected for genetic analysis, disease monitoring, or other research purposes.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status16">
+                    <div class="status-content">
+                        <div class="status-title">16 - Tracheal Swab Sample Collected</div>
+                        <div class="status-description">Tracheal swab collected for respiratory disease monitoring and research.</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status18">
+                    <div class="status-content">
+                        <div class="status-title">18 - Blood Sample Collected</div>
+                        <div class="status-description">Blood sample taken (contact the appropriate Bird Banding Office for the required permit).</div>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <input type="checkbox" class="checkbox" id="status20">
+                    <div class="status-content">
+                        <div class="status-title">20 - Fostered or Cross-Fostered into Wild Nests</div>
+                        <div class="status-description">Birds that have been placed into wild nests as part of conservation or research programs.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="status-selector">
+                <div class="selector-label">Bird Status Classification</div>
+                <select class="dropdown">
+                    <option>3 - Normal Wild Bird</option>
+                    <option>1 - New Bird (First Capture)</option>
+                    <option>4 - Hand-Reared Bird</option>
+                    <option>5 - Sick or Injured Bird</option>
+                    <option>6 - Dead Bird</option>
+                    <option>8 - Foreign Retrap</option>
+                </select>
+            </div>
+            
+            <div class="output-section">
+                <div class="output-label">Generated Protocol Code</div>
+                <div class="output-display">
+                    <div class="output-code">300</div>
+                    <div class="output-description">Federal Numbered Metal Band Only</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality with smooth transitions
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Add subtle animation feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+
+        // Enhanced checkbox functionality
+        const checkboxes = document.querySelectorAll('.checkbox');
+        const outputCode = document.querySelector('.output-code');
+        const outputDescription = document.querySelector('.output-description');
+        const dropdown = document.querySelector('.dropdown');
+
+        function updateOutputCode() {
+            const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
+            const baseCode = dropdown.value.charAt(0);
+            
+            if (checkedBoxes.length === 0) {
+                outputCode.textContent = baseCode + '00';
+                outputDescription.textContent = 'Federal Numbered Metal Band Only';
+            } else {
+                const codes = checkedBoxes.map(cb => cb.id.replace('status', '')).slice(0, 2);
+                const finalCode = baseCode + codes.join('').padEnd(2, '0');
+                outputCode.textContent = finalCode;
+                
+                const procedureCount = checkedBoxes.length;
+                outputDescription.textContent = `${procedureCount} Additional Protocol${procedureCount !== 1 ? 's' : ''} Applied`;
+            }
+            
+            // Add animation to code change
+            outputCode.style.transform = 'scale(0.9)';
+            outputCode.style.opacity = '0.7';
+            setTimeout(() => {
+                outputCode.style.transform = 'scale(1)';
+                outputCode.style.opacity = '1';
+            }, 200);
+        }
+
+        // Enhanced interactions
+        checkboxes.forEach((checkbox, index) => {
+            checkbox.addEventListener('change', function() {
+                updateOutputCode();
+                
+                // Add visual feedback to the parent status item
+                const statusItem = this.closest('.status-item');
+                if (this.checked) {
+                    statusItem.style.borderColor = 'var(--primary-purple)';
+                    statusItem.style.boxShadow = '0 4px 20px rgba(168, 85, 247, 0.4)';
+                } else {
+                    statusItem.style.borderColor = '';
+                    statusItem.style.boxShadow = '';
+                }
+            });
+            
+            // Stagger the initial animation
+            checkbox.closest('.status-item').style.animationDelay = `${index * 0.05}s`;
+        });
+
+        dropdown.addEventListener('change', updateOutputCode);
+
+        // Add some interactive polish
+        document.querySelectorAll('.status-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                if (!this.querySelector('.checkbox').checked) {
+                    this.style.transform = '';
+                }
+            });
+        });
+
+        // Initialize
+        updateOutputCode();
+    </script>
+</body>
+</html>
