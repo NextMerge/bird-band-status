@@ -89,6 +89,9 @@ function App() {
             birdStatus={birdStatus}
             onBirdStatusChange={setBirdStatus}
             activeInfoCodes={infoCodesActive}
+            onClearInfoCodes={() => {
+              setInfoCodesActive([]);
+            }}
             outputStatusCode={outputStatusCode}
             outputInfoCode={outputInfoCode}
           />
