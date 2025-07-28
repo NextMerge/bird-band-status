@@ -1,5 +1,6 @@
 import { Notice } from "@/components/Notice";
 import { Tile } from "@/components/Tile";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -27,6 +28,7 @@ type OutputCalculatorProps = {
   birdStatus: BirdStatusCode;
   onBirdStatusChange: (status: BirdStatusCode) => void;
   activeInfoCodes: InfoCode[];
+  onClearInfoCodes: () => void;
   outputStatusCode: string;
   outputInfoCode: InfoCode | AuxVariantInfoCode | 0 | 25 | 85;
 };
@@ -125,6 +127,22 @@ export function OutputCalculator(props: OutputCalculatorProps) {
               )}
             </div>
           </Notice>
+
+          {(props.activeInfoCodes.length > 0 || props.birdStatus !== 3) && (
+            <div className="flex justify-center pt-2">
+              <Button
+                onClick={() => {
+                  props.onBirdStatusChange(3);
+                  props.onClearInfoCodes();
+                }}
+                variant="outline"
+                size="sm"
+                className="text-xs"
+              >
+                {getText(t.output.clearSelections)}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </Tile>
