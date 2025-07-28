@@ -30,7 +30,7 @@ type InfoCodesTableProps = {
 };
 
 export function InfoCodesTable(props: InfoCodesTableProps) {
-  const { getText, t } = useRouteContext({ from: "/" });
+  const { getText, t, language } = useRouteContext({ from: "/" });
 
   const getFilteredInfoCodes = (category: InfoCategory | "All"): InfoCode[] => {
     if (category === "All") {
@@ -84,7 +84,7 @@ export function InfoCodesTable(props: InfoCodesTableProps) {
                 value={category}
                 className="rounded-md px-4 py-2 text-sm font-medium whitespace-nowrap text-slate-300 transition-all duration-200 hover:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg"
               >
-                {getText(t.common.category[category])}
+                {getText(t.table.category[category])}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -94,19 +94,19 @@ export function InfoCodesTable(props: InfoCodesTableProps) {
           <TableHeader>
             <TableRow className="border-white/10">
               <TableHead className="w-20 font-bold text-red-400">
-                {getText(t.common.tableColumns.code).toUpperCase()}
+                {getText(t.table.tableColumns.code).toUpperCase()}
               </TableHead>
               <TableHead className="font-bold text-red-400">
-                {getText(t.common.tableColumns.description).toUpperCase()}
+                {getText(t.table.tableColumns.description).toUpperCase()}
               </TableHead>
               <TableHead className="font-bold text-red-400">
-                {getText(t.common.tableColumns.definition).toUpperCase()}
+                {getText(t.table.tableColumns.definition).toUpperCase()}
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {getFilteredInfoCodes(props.filter).map((code) => {
-              const text = getInfoCodeText(code, "en");
+              const text = getInfoCodeText(code, language);
               const isActive = props.activeInfoCodes.includes(code);
               const isDisabled = isInfoCodeDisabled(code);
               return (

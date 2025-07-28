@@ -1,4 +1,3 @@
-import { infoCodeLocale } from "@/features/feature-bird-status/data/infoCodeLocale";
 import {
   type AuxVariantInfoCode,
   auxVariantInfoCodes,
@@ -6,7 +5,8 @@ import {
   infoCodes,
   inputInfoCodes,
 } from "@/features/feature-bird-status/data/infoCodes";
-import { commonLocale } from "@/features/feature-bird-status/data/mainLocale";
+import { infoCodeLocale } from "@/features/feature-bird-status/locale/infoCodeLocale";
+import { outputLocale } from "@/features/feature-bird-status/locale/outputLocale";
 
 export function getInfoCodeText(
   code: InfoCode | AuxVariantInfoCode | 0 | 25 | 85,
@@ -30,9 +30,9 @@ export function getInfoCodeText(
     const text = infoCodeLocale[mightCode];
 
     return {
-      shortDescription: `${text.shortDescription[locale]}${commonLocale.shortDescriptionAuxPrefix[locale]}`,
+      shortDescription: `${text.shortDescription[locale]}${outputLocale.shortDescriptionAuxPrefix[locale]}`,
       longDescription: text.longDescription
-        ? `${text.longDescription[locale]} ${commonLocale.longDescriptionAuxPrefix[locale]}`
+        ? `${text.longDescription[locale]} ${outputLocale.longDescriptionAuxPrefix[locale]}`
         : undefined,
     };
   }
