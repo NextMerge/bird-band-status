@@ -79,7 +79,7 @@ function App() {
         />
       </div>
 
-      <div className="sticky top-6 col-span-1 flex h-[calc(100vh-12rem)] flex-col gap-6">
+      <div className="sticky top-6 col-span-1 flex h-[calc(100svh-3rem)] flex-col gap-6">
         <div className="flex-shrink-0">
           <BirdStatusHeader />
         </div>
