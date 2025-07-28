@@ -19,6 +19,7 @@ import {
   inputInfoCodes,
   type InfoCode,
 } from "@/features/feature-bird-status/data/infoCodes";
+import { cn } from "@/lib/utils";
 import { useRouteContext } from "@tanstack/react-router";
 
 type InfoCodesTableProps = {
@@ -90,7 +91,7 @@ export function InfoCodesTable(props: InfoCodesTableProps) {
           </TabsList>
         </Tabs>
 
-        <Table>
+        <Table className="min-w-[500px]">
           <TableHeader>
             <TableRow className="border-white/10">
               <TableHead className="w-20 font-bold text-red-400">
@@ -121,30 +122,35 @@ export function InfoCodesTable(props: InfoCodesTableProps) {
                       props.onToggleInfoCode(code);
                     }
                   }}
-                  className={`border-white/10 ${
+                  className={cn(
+                    "border-white/10",
                     isDisabled
                       ? "cursor-not-allowed opacity-50"
-                      : `cursor-pointer text-white hover:bg-white/10 ${
-                          isActive ? "bg-blue-600/50 hover:bg-blue-700/50" : ""
-                        }`
-                  }`}
+                      : "cursor-pointer text-white hover:bg-white/10",
+                    isActive && "bg-blue-600/50 hover:bg-blue-700/50",
+                  )}
                 >
                   <TableCell
-                    className={`font-mono font-semibold ${
-                      isDisabled ? "text-gray-500" : "text-red-400"
-                    }`}
+                    className={cn(
+                      "font-mono text-sm font-semibold",
+                      isDisabled ? "text-gray-500" : "text-red-400",
+                    )}
                   >
                     {code.toString().padStart(2, "0")}
                   </TableCell>
                   <TableCell
-                    className={isDisabled ? "text-gray-500" : "text-white"}
+                    className={cn(
+                      "text-sm md:text-base",
+                      isDisabled ? "text-gray-500" : "text-white",
+                    )}
                   >
                     {text.shortDescription}
                   </TableCell>
                   <TableCell
-                    className={`text-sm ${
-                      isDisabled ? "text-gray-600" : "text-gray-300"
-                    }`}
+                    className={cn(
+                      "text-sm",
+                      isDisabled ? "text-gray-600" : "text-gray-300",
+                    )}
                   >
                     {text.longDescription ?? ""}
                   </TableCell>
