@@ -9,6 +9,7 @@ import { inputInfoCodes } from "@/features/feature-bird-status/data/infoCodes";
 import { BirdStatusHeader } from "@/features/feature-bird-status/ui/BirdStatusHeader";
 import { InfoCodesTable } from "@/features/feature-bird-status/ui/InfoCodesTable";
 import { OutputCalculator } from "@/features/feature-bird-status/ui/OutputCalculator";
+import { OutputDrawer } from "@/features/feature-bird-status/ui/OutputDrawer";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 
@@ -68,35 +69,62 @@ function App() {
   };
 
   return (
-    <main className="mx-auto grid max-w-[1800px] grid-cols-[1fr_400px] gap-6 p-6">
-      <div className="col-span-1">
-        <InfoCodesTable
-          filter={filter}
-          onFilterChange={setFilter}
-          activeInfoCodes={infoCodesActive}
-          onToggleInfoCode={toggleInfoCode}
-          currentBirdStatus={birdStatus}
-        />
-      </div>
-
-      <div className="sticky top-6 col-span-1 flex h-[calc(100svh-var(--spacing)*12)] flex-col gap-6">
-        <div className="flex-shrink-0">
-          <BirdStatusHeader />
-        </div>
-
-        <div className="flex-1">
-          <OutputCalculator
-            birdStatus={birdStatus}
-            onBirdStatusChange={setBirdStatus}
+    <>
+      <main className="mx-auto hidden max-w-[1800px] grid-cols-[1fr_350px] gap-6 p-6 lg:grid xl:grid-cols-[1fr_400px]">
+        <div className="col-span-1">
+          <InfoCodesTable
+            filter={filter}
+            onFilterChange={setFilter}
             activeInfoCodes={infoCodesActive}
-            onClearInfoCodes={() => {
-              setInfoCodesActive([]);
-            }}
-            outputStatusCode={outputStatusCode}
-            outputInfoCode={outputInfoCode}
+            onToggleInfoCode={toggleInfoCode}
+            currentBirdStatus={birdStatus}
           />
         </div>
-      </div>
-    </main>
+
+        <div className="sticky top-6 col-span-1 flex h-[calc(100svh-var(--spacing)*12)] flex-col gap-6">
+          <div className="flex-shrink-0">
+            <BirdStatusHeader />
+          </div>
+
+          <div className="flex-1">
+            <OutputCalculator
+              birdStatus={birdStatus}
+              onBirdStatusChange={setBirdStatus}
+              activeInfoCodes={infoCodesActive}
+              onClearInfoCodes={() => {
+                setInfoCodesActive([]);
+              }}
+              outputStatusCode={outputStatusCode}
+              outputInfoCode={outputInfoCode}
+            />
+          </div>
+        </div>
+      </main>
+
+      <main className="lg:hidden">
+        <div className="space-y-6 p-4 pb-20">
+          <BirdStatusHeader />
+
+          <InfoCodesTable
+            filter={filter}
+            onFilterChange={setFilter}
+            activeInfoCodes={infoCodesActive}
+            onToggleInfoCode={toggleInfoCode}
+            currentBirdStatus={birdStatus}
+          />
+        </div>
+
+        <OutputDrawer
+          birdStatus={birdStatus}
+          onBirdStatusChange={setBirdStatus}
+          activeInfoCodes={infoCodesActive}
+          onClearInfoCodes={() => {
+            setInfoCodesActive([]);
+          }}
+          outputStatusCode={outputStatusCode}
+          outputInfoCode={outputInfoCode}
+        />
+      </main>
+    </>
   );
 }

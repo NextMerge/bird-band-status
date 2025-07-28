@@ -1,0 +1,29 @@
+<svg width="152" height="152" viewBox="0 0 152 152">
+  <!-- Touch icon background -->
+  <rect width="152" height="152" rx="30" fill="url(#gradient)"/>
+  <!-- Bird body -->
+  <ellipse cx="76" cy="85" rx="35" ry="25" fill="#f7fafc"/>
+  <!-- Bird head -->
+  <circle cx="76" cy="55" r="22" fill="#ffffff"/>
+  <!-- Eye -->
+  <circle cx="82" cy="50" r="4" fill="#2d3748"/>
+  <circle cx="83" cy="49" r="1.5" fill="#ffffff"/>
+  <!-- Beak -->
+  <path d="M95 52 L105 48 L95 58 Z" fill="#d69e2e"/>
+  <!-- Wing details -->
+  <path d="M50 75 Q35 85 50 95 Q70 85 50 75" fill="#e2e8f0"/>
+  <path d="M52 78 Q45 82 52 86 Q60 82 52 78" fill="#cbd5e0"/>
+  <!-- Tail feathers -->
+  <path d="M40 95 Q25 105 45 115 Q55 105 40 95" fill="#e2e8f0"/>
+  <path d="M42 98 Q35 102 42 106 Q48 102 42 98" fill="#cbd5e0"/>
+  <!-- Leg -->
+  <line x1="76" y1="108" x2="76" y2="120" stroke="#d69e2e" stroke-width="3"/>
+  <line x1="72" y1="120" x2="80" y2="120" stroke="#d69e2e" stroke-width="2"/>
+
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+  </defs>
+</svg>
