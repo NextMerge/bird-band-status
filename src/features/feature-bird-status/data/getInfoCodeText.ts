@@ -30,7 +30,7 @@ export function getInfoCodeText(
     const text = infoCodeLocale[mightCode];
 
     return {
-      shortDescription: `${text.shortDescription[locale]}${outputLocale.shortDescriptionAuxPrefix[locale]}`,
+      shortDescription: `${text.shortDescription[locale]}${outputLocale.shortDescriptionAuxPrefix[locale]}${text.shortDescriptionAppention?.[locale] ?? ""}`,
       longDescription: text.longDescription
         ? `${text.longDescription[locale]} ${outputLocale.longDescriptionAuxPrefix[locale]}`
         : undefined,
@@ -40,7 +40,7 @@ export function getInfoCodeText(
   const text = infoCodeLocale[code as InfoCode | 0 | 25 | 85];
 
   return {
-    shortDescription: text.shortDescription[locale],
+    shortDescription: `${text.shortDescription[locale]}${text.shortDescriptionAppention?.[locale] ?? ""}`,
     longDescription: text.longDescription
       ? text.longDescription[locale]
       : undefined,

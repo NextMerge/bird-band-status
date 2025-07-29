@@ -5,6 +5,7 @@ export const infoCodeLocale: Record<
   {
     shortDescription: { en: string; fr: string };
     longDescription?: { en: string; fr: string };
+    shortDescriptionAppention?: { en: string; fr: string };
   }
 > = {
   0: {
@@ -67,6 +68,10 @@ export const infoCodeLocale: Record<
     longDescription: {
       en: "Two Federal bands placed on a bird at the same time. One Federal band on each tarsus -- two metal bands cannot be used on the same tarsus. This code does not apply to a bird to whom a second band was added at a subsequent encounter.",
       fr: "Deux bagues fédérales placées sur un oiseau en même temps. Une bague fédérale sur chaque tarse - deux bagues métalliques ne peuvent pas être utilisées sur le même tarse. Ce code ne s'applique pas à un oiseau auquel une deuxième bague a été ajoutée lors d'une rencontre ultérieure.",
+    },
+    shortDescriptionAppention: {
+      en: ". Disposition code must be D (Double Banded 1st) or S (Double Bandedg 2nd)",
+      fr: ". Le code de disposition doit être D (Double Bande 1er) ou S (Double Bande 2e)",
     },
   },
   8: {
