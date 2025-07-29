@@ -69,51 +69,36 @@ function App() {
   };
 
   return (
-    <>
-      <main className="mx-auto hidden max-w-[1800px] grid-cols-[1fr_350px] gap-6 p-6 lg:grid xl:grid-cols-[1fr_400px]">
-        <div className="col-span-1">
-          <InfoCodesTable
-            filter={filter}
-            onFilterChange={setFilter}
-            activeInfoCodes={infoCodesActive}
-            onToggleInfoCode={toggleInfoCode}
-            currentBirdStatus={birdStatus}
-          />
-        </div>
+    <main className="mx-auto flex max-w-[1800px] gap-6 p-6 pb-[88px] lg:pb-6">
+      <div className="flex-1">
+        <InfoCodesTable
+          filter={filter}
+          onFilterChange={setFilter}
+          activeInfoCodes={infoCodesActive}
+          onToggleInfoCode={toggleInfoCode}
+          currentBirdStatus={birdStatus}
+        />
+      </div>
 
-        <div className="sticky top-6 col-span-1 flex h-[calc(100svh-var(--spacing)*12)] flex-col gap-6">
-          <div className="flex-shrink-0">
-            <BirdStatusHeader />
-          </div>
-
-          <div className="flex-1">
-            <OutputCalculator
-              birdStatus={birdStatus}
-              onBirdStatusChange={setBirdStatus}
-              activeInfoCodes={infoCodesActive}
-              onClearInfoCodes={() => {
-                setInfoCodesActive([]);
-              }}
-              outputStatusCode={outputStatusCode}
-              outputInfoCode={outputInfoCode}
-            />
-          </div>
-        </div>
-      </main>
-
-      <main className="lg:hidden">
-        <div className="space-y-6 p-4 pb-20">
+      <div className="hidden h-auto w-[350px] flex-col gap-6 lg:flex xl:w-[400px]">
+        <div className="flex-shrink-0">
           <BirdStatusHeader />
-
-          <InfoCodesTable
-            filter={filter}
-            onFilterChange={setFilter}
-            activeInfoCodes={infoCodesActive}
-            onToggleInfoCode={toggleInfoCode}
-            currentBirdStatus={birdStatus}
-          />
         </div>
 
+        <div>
+          <OutputCalculator
+            birdStatus={birdStatus}
+            onBirdStatusChange={setBirdStatus}
+            activeInfoCodes={infoCodesActive}
+            onClearInfoCodes={() => {
+              setInfoCodesActive([]);
+            }}
+            outputStatusCode={outputStatusCode}
+            outputInfoCode={outputInfoCode}
+          />
+        </div>
+      </div>
+      <div className="lg:hidden">
         <OutputDrawer
           birdStatus={birdStatus}
           onBirdStatusChange={setBirdStatus}
@@ -124,7 +109,7 @@ function App() {
           outputStatusCode={outputStatusCode}
           outputInfoCode={outputInfoCode}
         />
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
