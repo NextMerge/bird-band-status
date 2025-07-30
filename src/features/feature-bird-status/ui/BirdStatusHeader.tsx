@@ -26,7 +26,7 @@ export function BirdStatusHeader() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Bird Banding Lab database
+            {getText(t.header.birdBandingProgramLink)}
             <svg
               className="ml-1 h-3 w-3"
               fill="none"

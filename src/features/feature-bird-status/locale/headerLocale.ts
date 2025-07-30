@@ -23,4 +23,8 @@ export const headerLocale = {
     en: "Mortalities",
     fr: "Mortalités",
   },
+  birdBandingProgramLink: {
+    en: "North American Bird Banding Program Banding Lab database",
+    fr: "le Programme nord-américain de baguage",
+  },
 };

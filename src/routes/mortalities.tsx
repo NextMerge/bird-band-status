@@ -39,7 +39,7 @@ function MortalitiesPage() {
         {language === "fr" ? (
           <>
             <h1 className="mb-6 text-3xl font-bold">
-              12. Mortalités d&apos;oiseaux et comment les soumettre
+              Mortalités d&apos;oiseaux et comment les soumettre
             </h1>
 
             <p className="mb-6 text-lg leading-relaxed">
@@ -132,7 +132,7 @@ function MortalitiesPage() {
         ) : (
           <>
             <h1 className="mb-6 text-3xl font-bold">
-              12. Bird mortalities and how to submit them
+              Bird mortalities and how to submit them
             </h1>
 
             <p className="mb-6 text-lg leading-relaxed">
