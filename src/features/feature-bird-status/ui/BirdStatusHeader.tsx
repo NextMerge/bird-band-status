@@ -2,7 +2,7 @@ import { Notice } from "@/components/Notice";
 import { Tile } from "@/components/Tile";
 import { Button } from "@/components/ui/button";
 import { env } from "@/env";
-import { useRouteContext, useRouter } from "@tanstack/react-router";
+import { Link, useRouteContext, useRouter } from "@tanstack/react-router";
 import { metaLocale } from "../locale/metaLocale";
 
 export function BirdStatusHeader() {
@@ -70,7 +70,7 @@ export function BirdStatusHeader() {
             </svg>
           </a>
         </div>
-        <div className="flex justify-center">
+        <div className="flex items-center justify-center gap-2">
           <Button
             onClick={() => void switchLanguage()}
             variant="outline"
@@ -81,6 +81,12 @@ export function BirdStatusHeader() {
               ? metaLocale.languages.fr
               : metaLocale.languages.en}
           </Button>
+          <span className="text-gray-500">•</span>
+          <Link to="/mortalities">
+            <Button variant="outline" size="sm" className="text-xs">
+              {getText(t.header.mortalityButton)}
+            </Button>
+          </Link>
         </div>
       </div>
     </Tile>

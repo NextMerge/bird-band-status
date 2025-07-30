@@ -19,4 +19,8 @@ export const headerLocale = {
     en: "NOTE: Feather sampling and cloacal swabs do not affect the status code.",
     fr: "REMARQUE: Les prélèvements de plumes et les écouvillons cloacaux n'ont pas d'incidence sur le code d'état.",
   },
+  mortalityButton: {
+    en: "Mortalities",
+    fr: "Mortalités",
+  },
 };

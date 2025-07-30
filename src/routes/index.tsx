@@ -70,7 +70,11 @@ function App() {
 
   return (
     <main className="mx-auto flex max-w-[1800px] gap-6 p-6 pb-[88px] lg:pb-6">
-      <div className="flex-1">
+      <div className="flex flex-1 flex-col gap-6">
+        <div className="lg:hidden">
+          <BirdStatusHeader />
+        </div>
+
         <InfoCodesTable
           filter={filter}
           onFilterChange={setFilter}
