@@ -42,7 +42,7 @@ function MortalitiesPage() {
               Mortalités d&apos;oiseaux et comment les soumettre
             </h1>
 
-            <p className="mb-6 text-lg leading-relaxed">
+            <p className="mb-6 leading-relaxed">
               Une mortalité due au baguage est un oiseau, bagué ou non, qui est
               mort (ou a été euthanasié) pendant les opérations de baguage. Un
               oiseau récupéré est un oiseau bagué mort lorsque l&apos;oiseau
@@ -122,7 +122,7 @@ function MortalitiesPage() {
               </p>
             </section>
 
-            <p className="mt-8 text-lg leading-relaxed">
+            <p className="mt-8">
               Seules les mortalités liées au baguage sont acceptées avec les
               données de baguage ou de recapture. Par exemple, un oiseau non
               bagué qui heurte la fenêtre de votre maison ne doit pas être
@@ -135,7 +135,7 @@ function MortalitiesPage() {
               Bird mortalities and how to submit them
             </h1>
 
-            <p className="mb-6 text-lg leading-relaxed">
+            <p className="mb-6 leading-relaxed">
               A banding mortality is a bird either banded or unbanded, that died
               (or was euthanized) during banding operations. A recovery is a
               dead banded bird where the bird dies either during recapture or
@@ -205,7 +205,7 @@ function MortalitiesPage() {
               </p>
             </section>
 
-            <p className="mt-8 text-lg leading-relaxed">
+            <p className="mt-8">
               Only mortalities related to banding are accepted with your banding
               or recapture data, for example, an unbanded bird striking your
               home&apos;s window should not be reported with your banding or

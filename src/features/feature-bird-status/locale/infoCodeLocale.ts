@@ -70,7 +70,7 @@ export const infoCodeLocale: Record<
       fr: "Deux bagues fédérales placées sur un oiseau en même temps. Une bague fédérale sur chaque tarse - deux bagues métalliques ne peuvent pas être utilisées sur le même tarse. Ce code ne s'applique pas à un oiseau auquel une deuxième bague a été ajoutée lors d'une rencontre ultérieure.",
     },
     shortDescriptionAppention: {
-      en: ". Disposition code must be D (Double Banded 1st) or S (Double Bandedg 2nd)",
+      en: ". Disposition code must be D (Double Banded 1st) or S (Double Banded 2nd)",
       fr: ". Le code de disposition doit être D (Double Bande 1er) ou S (Double Bande 2e)",
     },
   },
