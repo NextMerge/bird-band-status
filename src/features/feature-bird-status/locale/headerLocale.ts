@@ -1,7 +1,7 @@
 export const headerLocale = {
   headerTitle: {
-    en: "Compute the bird banding status code for",
-    fr: "Calcule le code d'état de baguage d'oiseaux pour",
+    en: "Compute the bird banding status code for the",
+    fr: "Calcule le code d'état de baguage d'oiseaux pour le",
   },
   headerNotice: {
     en: "This tool is not affiliated with the USGS Bird Banding Lab or the CWS Bird Banding Office.",
@@ -24,7 +24,7 @@ export const headerLocale = {
     fr: "Mortalités",
   },
   birdBandingProgramLink: {
-    en: "North American Bird Banding Program Banding Lab database",
-    fr: "le Programme nord-américain de baguage",
+    en: "North American Bird Banding Program",
+    fr: "Programme nord-américain de baguage",
   },
 };
