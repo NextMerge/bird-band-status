@@ -1,28 +1,25 @@
 import {
-  type AuxVariantInfoCode,
-  defaultAddCode,
-  getAuxMarkerCodes,
+  auxMarkerCodes,
   type InfoCode,
-  inputInfoCodes,
-  miscellaneous,
-  twoOrMoreTypesOfAuxiliaryMarkers,
+  infoCodes,
+  type OutputInfoCode,
+  specialOutputCodes,
 } from "./infoCodes";
 
-export function computeOutputInfoCode(
-  inputCodes: InfoCode[],
-): InfoCode | AuxVariantInfoCode | 0 | 25 | 85 {
-  if (inputCodes.length <= 0) {
-    return defaultAddCode;
+export function computeOutputInfoCode(inputCodes: InfoCode[]): OutputInfoCode {
+  if (inputCodes.length === 0) {
+    return specialOutputCodes.none;
   }
 
-  if (inputCodes.length <= 1) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return inputCodes[0]!;
+  if (inputCodes.length === 1) {
+    return inputCodes[0];
   }
 
-  const auxMarkerCodes = getAuxMarkerCodes();
+  const nonAuxCodes = inputCodes.filter(
+    (code) => !auxMarkerCodes.includes(code),
+  );
 
-  if (inputCodes.every((code) => auxMarkerCodes.includes(code))) {
+  if (nonAuxCodes.length === 0) {
     if (inputCodes.includes(6)) {
       return 29;
     }
@@ -30,17 +27,13 @@ export function computeOutputInfoCode(
       return 30;
     }
 
-    return twoOrMoreTypesOfAuxiliaryMarkers;
+    return specialOutputCodes.multipleAuxMarkers;
   }
 
-  const inputCodesThatAreNotAuxMarkers = inputCodes.filter(
-    (code) => !auxMarkerCodes.includes(code),
-  );
-
-  if (inputCodesThatAreNotAuxMarkers.length === 1) {
+  if (nonAuxCodes.length === 1) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return inputInfoCodes[inputCodesThatAreNotAuxMarkers[0]!].auxiliaryVariant!;
+    return infoCodes[nonAuxCodes[0]].auxiliaryVariant!;
   }
 
-  return miscellaneous;
+  return specialOutputCodes.miscellaneous;
 }

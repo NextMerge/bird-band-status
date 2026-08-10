@@ -1,15 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 import { computeOutputInfoCode } from "./computeOutputInfoCode";
-import {
-  defaultAddCode,
-  miscellaneous,
-  twoOrMoreTypesOfAuxiliaryMarkers,
-} from "./infoCodes";
+import { specialOutputCodes } from "./infoCodes";
 
-describe("computeOutputInformation()", () => {
+describe("computeOutputInfoCode()", () => {
   it("should output the default code when the input is empty", () => {
-    expect(computeOutputInfoCode([])).toEqual(defaultAddCode);
+    expect(computeOutputInfoCode([])).toEqual(specialOutputCodes.none);
   });
 
   it("should output the only code when the input has only one code", () => {
@@ -22,18 +18,24 @@ describe("computeOutputInformation()", () => {
   });
 
   it("should output the miscellaneous code when there are multiple non-aux codes", () => {
-    expect(computeOutputInfoCode([18, 70])).toEqual(miscellaneous);
-    expect(computeOutputInfoCode([18, 70, 87])).toEqual(miscellaneous);
+    expect(computeOutputInfoCode([18, 70])).toEqual(
+      specialOutputCodes.miscellaneous,
+    );
+    expect(computeOutputInfoCode([18, 70, 87])).toEqual(
+      specialOutputCodes.miscellaneous,
+    );
   });
 
   describe("other miscellaneous cases", () => {
     it("85", () => {
-      expect(computeOutputInfoCode([14, 18])).toEqual(miscellaneous);
+      expect(computeOutputInfoCode([14, 18])).toEqual(
+        specialOutputCodes.miscellaneous,
+      );
     });
 
     it("25", () => {
       expect(computeOutputInfoCode([2, 80])).toEqual(
-        twoOrMoreTypesOfAuxiliaryMarkers,
+        specialOutputCodes.multipleAuxMarkers,
       );
     });
 

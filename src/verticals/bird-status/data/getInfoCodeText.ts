@@ -1,46 +1,55 @@
-import { infoCodeLocale } from "../locale/infoCodeLocale";
-import { outputLocale } from "../locale/outputLocale";
+import { type Locale, uiLocale } from "../locale/uiLocale";
 import {
   type AuxVariantInfoCode,
   auxVariantInfoCodes,
   type InfoCode,
+  infoCodeList,
   infoCodes,
-  inputInfoCodes,
+  type OutputInfoCode,
+  type SpecialOutputCode,
+  specialOutputCodeText,
 } from "./infoCodes";
 
+function isAuxVariantCode(code: OutputInfoCode): code is AuxVariantInfoCode {
+  return auxVariantInfoCodes.some((variant) => variant === code);
+}
+
+function isInfoCode(code: InfoCode | SpecialOutputCode): code is InfoCode {
+  return code in infoCodes;
+}
+
 export function getInfoCodeText(
-  code: InfoCode | AuxVariantInfoCode | 0 | 25 | 85,
-  locale: "en" | "fr",
+  code: OutputInfoCode,
+  locale: Locale,
 ): {
   shortDescription: string;
   longDescription?: string;
 } {
-  if (auxVariantInfoCodes.includes(code as AuxVariantInfoCode)) {
-    // check through the key map inputInfoCodes and return the key whose value contains the auxiliaryVariant
-    const mightCode = infoCodes.find((c) => {
-      return inputInfoCodes[c].auxiliaryVariant === code;
+  if (isAuxVariantCode(code)) {
+    const matchingCode = infoCodeList.find((c) => {
+      return infoCodes[c].auxiliaryVariant === code;
     });
 
-    if (!mightCode) {
+    if (!matchingCode) {
       throw new Error(
         `Could not find auxiliary variant code ${code.toString().padStart(2, "0")}`,
       );
     }
 
-    const text = infoCodeLocale[mightCode];
+    const text = infoCodes[matchingCode];
 
     return {
-      shortDescription: `${text.shortDescription[locale]}${outputLocale.shortDescriptionAuxPrefix[locale]}${text.shortDescriptionAppention?.[locale] ?? ""}`,
+      shortDescription: `${text.shortDescription[locale]}${uiLocale.output.shortDescriptionAuxPrefix[locale]}${text.shortDescriptionSuffix?.[locale] ?? ""}`,
       longDescription: text.longDescription
-        ? `${text.longDescription[locale]} ${outputLocale.longDescriptionAuxPrefix[locale]}`
+        ? `${text.longDescription[locale]} ${uiLocale.output.longDescriptionAuxPrefix[locale]}`
         : undefined,
     };
   }
 
-  const text = infoCodeLocale[code as InfoCode | 0 | 25 | 85];
+  const text = isInfoCode(code) ? infoCodes[code] : specialOutputCodeText[code];
 
   return {
-    shortDescription: `${text.shortDescription[locale]}${text.shortDescriptionAppention?.[locale] ?? ""}`,
+    shortDescription: `${text.shortDescription[locale]}${text.shortDescriptionSuffix?.[locale] ?? ""}`,
     longDescription: text.longDescription
       ? text.longDescription[locale]
       : undefined,

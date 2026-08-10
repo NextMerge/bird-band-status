@@ -1,132 +1,349 @@
 import type { BirdStatusCode } from "./birdStatus";
 import type { InfoCategory } from "./infoCategories";
 
-export const infoCodes = [
+type LocalizedText = { en: string; fr: string };
+
+export const infoCodeList = [
   1, 2, 3, 4, 6, 7, 8, 9, 11, 14, 16, 18, 20, 33, 39, 40, 51, 59, 69, 70, 75,
   80, 81, 87, 90,
 ] as const;
-export type InfoCode = (typeof infoCodes)[number];
+export type InfoCode = (typeof infoCodeList)[number];
 
 export const auxVariantInfoCodes = [
   10, 12, 15, 17, 19, 21, 29, 30, 34, 41, 71, 88,
 ] as const;
 export type AuxVariantInfoCode = (typeof auxVariantInfoCodes)[number];
 
-export function getAuxMarkerCodes(): InfoCode[] {
-  return infoCodes.filter((code) => {
-    return (
-      inputInfoCodes[code].category === "VisualAuxMarker" ||
-      inputInfoCodes[code].category === "ElectronicAuxMarker"
-    );
-  });
-}
+export const specialOutputCodes = {
+  none: 0,
+  multipleAuxMarkers: 25,
+  miscellaneous: 85,
+} as const;
+export type SpecialOutputCode =
+  (typeof specialOutputCodes)[keyof typeof specialOutputCodes];
 
-export const defaultAddCode = 0;
-export const twoOrMoreTypesOfAuxiliaryMarkers = 25;
-export const miscellaneous = 85;
+export type OutputInfoCode = InfoCode | AuxVariantInfoCode | SpecialOutputCode;
 
-export const inputInfoCodes: Record<
-  InfoCode,
-  {
-    auxiliaryVariant?: AuxVariantInfoCode;
-    category: InfoCategory;
-    canOnlyBeUsedWithBirdStatus?: BirdStatusCode[];
-    canNotBeUsedWithBirdStatus?: BirdStatusCode[];
-  }
-> = {
+type InfoCodeEntry = {
+  category: InfoCategory;
+  auxiliaryVariant?: AuxVariantInfoCode;
+  canOnlyBeUsedWithBirdStatus?: BirdStatusCode[];
+  canNotBeUsedWithBirdStatus?: BirdStatusCode[];
+  shortDescription: LocalizedText;
+  longDescription?: LocalizedText;
+  shortDescriptionSuffix?: LocalizedText;
+};
+
+export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
   1: {
     category: "VisualAuxMarker",
+    shortDescription: {
+      en: "Colored leg band(s): plastic, metal, paint, tape",
+      fr: "Bague(s) de couleur(s) aux pattes : plastique, métal, peinture, ruban adhésif",
+    },
+    longDescription: {
+      en: "Colored leg band(s) of plastic or metal - This applies to painted or anodized Federal bands as well as colored tape over bands. Note: two metal bands should never be used on the same tarsus.",
+      fr: "Bague(s) de couleur(s) aux pattes en plastique ou en métal - Cela s'applique aux bagues fédérales peintes ou anodisées ainsi qu'aux rubans adhésifs colorés sur les bagues. Remarque : deux bagues métalliques ne doivent jamais être utilisées sur le même tarse.",
+    },
   },
   2: {
     category: "VisualAuxMarker",
+    shortDescription: {
+      en: "Neck collar - usually coded",
+      fr: "Collier cervical - habituellement codé",
+    },
+    longDescription: {
+      en: "Neck collar - Collar codes and colors must be reported in marker-related fields.",
+      fr: "Collier cervical - Les codes et les couleurs des colliers doivent être signalés dans les champs liés aux marqueurs.",
+    },
   },
   3: {
     category: "VisualAuxMarker",
     canOnlyBeUsedWithBirdStatus: [3],
+    shortDescription: {
+      en: "Reward band (Federal or State)",
+      fr: "Bague de récompense (fédérale ou d'État)",
+    },
   },
   4: {
     category: "VisualAuxMarker",
     canOnlyBeUsedWithBirdStatus: [3],
+    shortDescription: {
+      en: "Control band (Reward band studies only)",
+      fr: "Bague de contrôle (études de bagues de récompense uniquement)",
+    },
+    longDescription: {
+      en: "Control band - For use in conjunction with reward band studies only.",
+      fr: "Bague de contrôle - À utiliser uniquement en conjonction avec des études de bagues de récompense.",
+    },
   },
   6: {
-    auxiliaryVariant: 29,
     category: "VisualAuxMarker",
+    auxiliaryVariant: 29,
+    shortDescription: {
+      en: "Misc. metal band (State, Provincial etc) with address or telephone number, plus Federal band",
+      fr: "Bague métallique diverses (État, provincial, etc.) avec adresse ou numéro de téléphone, plus bague fédérale",
+    },
+    longDescription: {
+      en: "Miscellaneous band - Metal bands with an additional address or telephone number, including State or Provincial bands, private organizations bands, and rarely banders. Explanation must be given in the Remarks field.",
+      fr: "Bague diverse - Bagues métalliques avec une adresse ou un numéro de téléphone supplémentaire, y compris les bagues d'État ou provinciales, les bagues d'organisations privées et rarement les bagueurs. Une explication doit être donnée dans le champ « Remarques ».",
+    },
   },
   7: {
-    auxiliaryVariant: 30,
     category: "VisualAuxMarker",
+    auxiliaryVariant: 30,
+    shortDescription: {
+      en: "Double-banded (Two Federal bands placed on a bird at the same time)",
+      fr: "Double bague (Deux bagues fédérales placées sur un oiseau en même temps)",
+    },
+    longDescription: {
+      en: "Two Federal bands placed on a bird at the same time. One Federal band on each tarsus -- two metal bands cannot be used on the same tarsus. This code does not apply to a bird to whom a second band was added at a subsequent encounter.",
+      fr: "Deux bagues fédérales placées sur un oiseau en même temps. Une bague fédérale sur chaque tarse - deux bagues métalliques ne peuvent pas être utilisées sur le même tarse. Ce code ne s'applique pas à un oiseau auquel une deuxième bague a été ajoutée lors d'une rencontre ultérieure.",
+    },
+    shortDescriptionSuffix: {
+      en: ". Disposition code must be D (Double Banded 1st) or S (Double Banded 2nd)",
+      fr: ". Le code de disposition doit être D (Double Bande 1er) ou S (Double Bande 2e)",
+    },
   },
   8: {
     category: "VisualAuxMarker",
+    shortDescription: {
+      en: "Temporary markers: Paint or dye; other temporary markers on feathers (imping, tape on tail)",
+      fr: "Marqueurs temporaires : Peinture ou teinture ; autres marqueurs temporaires sur les plumes (imping, ruban adhésif sur la queue)",
+    },
+    longDescription: {
+      en: "Temporary markers - Any part of bird painted or dyed, or other temporary markers on feathers (e.g., imping, tail streamers, etc.).",
+      fr: "Marqueurs temporaires - Toute partie de l'oiseau peinte ou teinte, ou d'autres marqueurs temporaires sur les plumes (par exemple, imping, streamers de queue, etc.).",
+    },
   },
   9: {
-    auxiliaryVariant: 10,
     category: "Other",
+    auxiliaryVariant: 10,
     canOnlyBeUsedWithBirdStatus: [2, 3, 4, 8],
+    shortDescription: {
+      en: "All flight feathers on one or both wings clipped or pulled upon release",
+      fr: "Toutes les plumes de vol d'une ou des deux ailes coupées ou arrachées lors de la remise en liberté",
+    },
   },
   11: {
-    auxiliaryVariant: 12,
     category: "Other",
+    auxiliaryVariant: 12,
+    shortDescription: {
+      en: "Sexed by laparotomy or laparoscopy",
+      fr: "Sexé par laparotomie ou laparoscopie",
+    },
   },
   14: {
-    auxiliaryVariant: 15,
     category: "Sample",
+    auxiliaryVariant: 15,
+    shortDescription: {
+      en: "Mouth swab",
+      fr: "Écouvillon buccal",
+    },
   },
   16: {
-    auxiliaryVariant: 17,
     category: "Sample",
+    auxiliaryVariant: 17,
+    shortDescription: {
+      en: "Tracheal swab",
+      fr: "Écouvillon trachéal",
+    },
   },
   18: {
-    auxiliaryVariant: 19,
     category: "Sample",
+    auxiliaryVariant: 19,
     canNotBeUsedWithBirdStatus: [7],
+    shortDescription: {
+      en: "Blood sample taken",
+      fr: "Prélèvement sanguin effectué",
+    },
+    longDescription: {
+      en: "Blood sample taken (contact the appropriate Bird Banding Office for the required permit).",
+      fr: "Prélèvement sanguin effectué (contacter le bureau de baguage des oiseaux approprié pour le permis requis).",
+    },
   },
   20: {
-    auxiliaryVariant: 21,
     category: "Other",
+    auxiliaryVariant: 21,
+    shortDescription: {
+      en: "Fostered or cross-fostered into wild nests",
+      fr: "Fostering ou élevé par des parents adoptifs dans des nids sauvages",
+    },
   },
   33: {
-    auxiliaryVariant: 34,
     category: "CaptureMethod",
+    auxiliaryVariant: 34,
     canNotBeUsedWithBirdStatus: [7],
+    shortDescription: {
+      en: "Taken from an artificial nest structure (eg, nest boxes, platforms, etc)",
+      fr: "Pris dans une structure de nid artificielle (par exemple, nichoirs, plateformes, etc.)",
+    },
+    longDescription: {
+      en: "Taken from an artificial nest structure (e.g., nest boxes, platforms, etc.). Includes hacked birds as code 433.",
+      fr: "Pris dans une structure de nid artificielle (par exemple, nichoirs, plateformes, etc.). Comprend les oiseaux élevés par des parents adoptifs comme code 433.",
+    },
   },
   39: {
     category: "VisualAuxMarker",
+    shortDescription: {
+      en: "Wing, patagial, head, back, and/or nape tag(s)",
+      fr: "Marque(s) d'aile, patagium, tête, dos et/ou nuque",
+    },
+    longDescription: {
+      en: "Wing, patagial, head, back, and/or nape tag(s). All markers must be described in marker-related fields.",
+      fr: "Marque(s) d'aile, patagium, tête, dos et/ou nuque. Tous les marqueurs doivent être décrits dans les champs liés aux marqueurs.",
+    },
   },
   40: {
-    auxiliaryVariant: 41,
     category: "Other",
+    auxiliaryVariant: 41,
     canOnlyBeUsedWithBirdStatus: [4, 5, 7],
+    shortDescription: {
+      en: "Oiled",
+      fr: "Huilé",
+    },
   },
   51: {
     category: "VisualAuxMarker",
+    shortDescription: {
+      en: "Nasal saddle and nasal discs or other bill marker",
+      fr: "Selle nasale et disques nasaux ou autre marqueur de bec",
+    },
+    longDescription: {
+      en: "Nasal saddle and nasal discs or other bill marker - Marker must be described in marker-related fields and in Remarks if necessary.",
+      fr: "Selle nasale et disques nasaux ou autre marqueur de bec - Le marqueur doit être décrit dans les champs liés aux marqueurs et dans les remarques si nécessaire.",
+    },
   },
   59: {
     category: "VisualAuxMarker",
+    shortDescription: {
+      en: "Web tagged, usually coded",
+      fr: "Étiqueté sur le web, habituellement codé",
+    },
+    longDescription: {
+      en: "Web tagged - Marker must be described in marker-related fields.",
+      fr: "Étiqueté sur le web - Le marqueur doit être décrit dans les champs liés aux marqueurs.",
+    },
   },
   69: {
     category: "VisualAuxMarker",
+    shortDescription: {
+      en: "Flag, streamer, or tab on leg",
+      fr: "Drapeau, fanion ou languette sur la patte",
+    },
+    longDescription: {
+      en: "Flag, streamer, or tab on leg - Marker must be described in marker-related fields.",
+      fr: "Drapeau, fanion ou languette sur la patte - Le marqueur doit être décrit dans les champs liés aux marqueurs.",
+    },
   },
   70: {
-    auxiliaryVariant: 71,
     category: "CaptureMethod",
+    auxiliaryVariant: 71,
     canOnlyBeUsedWithBirdStatus: [2, 3, 5, 8],
+    shortDescription: {
+      en: "Captured by spotlighting",
+      fr: "Capturé au moyen d’éclairage de nuit",
+    },
   },
   75: {
     category: "ElectronicAuxMarker",
+    shortDescription: {
+      en: "PIT tag",
+      fr: "Puce électronique",
+    },
+    longDescription: {
+      en: "Equipped with PIT tag only (see also additional information code 25) - Marker must be described in marker-related fields. Frequency and type of attachment may be listed in Remarks.",
+      fr: "Équipé uniquement d'une puce électronique (voir également le code de renseignements complémentaires 25) - Le marqueur doit être décrit dans les champs liés aux marqueurs. La fréquence et le type de fixation peuvent être indiqués dans les remarques.",
+    },
   },
   80: {
     category: "ElectronicAuxMarker",
+    shortDescription: {
+      en: "Satellite/Cell/GPS transmitter",
+      fr: "Transmetteur satellite/cellulaire/GPS",
+    },
+    longDescription: {
+      en: "Equipped with Satellite/Cell/GPS transmitter only (see also additional information code 25) - Marker must be described in marker-related fields. Frequency and type of attachment may be listed in Remarks.",
+      fr: "Équipé uniquement d'un transmetteur satellite/cellulaire/GPS (voir également le code de renseignements complémentaires 25) - Le marqueur doit être décrit dans les champs liés aux marqueurs. La fréquence et le type de fixation peuvent être indiqués dans les remarques.",
+    },
   },
   81: {
     category: "ElectronicAuxMarker",
+    shortDescription: {
+      en: "Radio transmitter",
+      fr: "Émetteur radio",
+    },
+    longDescription: {
+      en: "Equipped with radio transmitter only (see also additional information code 25) - Marker must be described in marker-related fields. Frequency and type of attachment may be listed in Remarks.",
+      fr: "Équipé uniquement d'un émetteur radio (voir également le code de renseignements complémentaires 25) - Le marqueur doit être décrit dans les champs liés aux marqueurs. La fréquence et le type de fixation peuvent être indiqués dans les remarques.",
+    },
   },
   87: {
-    auxiliaryVariant: 88,
     category: "CaptureMethod",
+    auxiliaryVariant: 88,
     canNotBeUsedWithBirdStatus: [4],
+    shortDescription: {
+      en: "Captured with drugs or tranquilizers",
+      fr: "Capturé avec des médicaments ou des tranquillisants",
+    },
+    longDescription: {
+      en: "Captured with drugs or tranquilizers.",
+      fr: "Capturé avec des médicaments ou des tranquillisants.",
+    },
   },
   90: {
     category: "ElectronicAuxMarker",
+    shortDescription: {
+      en: "Data logger (including geo-locators)",
+      fr: "Enregistreur de données (y compris les géo-localisateurs)",
+    },
+    longDescription: {
+      en: "Equipped with data logger only (see also additional information code 25) - Marker must be described in marker-related fields. Frequency and type of attachment may be listed in Remarks.",
+      fr: "Équipé uniquement d'un enregistreur de données (voir également le code de renseignements complémentaires 25) - Le marqueur doit être décrit dans les champs liés aux marqueurs. La fréquence et le type de fixation peuvent être indiqués dans les remarques.",
+    },
   },
 };
+
+export const specialOutputCodeText: Record<
+  SpecialOutputCode,
+  Pick<
+    InfoCodeEntry,
+    "shortDescription" | "longDescription" | "shortDescriptionSuffix"
+  >
+> = {
+  0: {
+    shortDescription: {
+      en: "Federal numbered metal band only",
+      fr: "Bague métallique fédérale numérotée uniquement",
+    },
+  },
+  25: {
+    shortDescription: {
+      en: "Two or more types of auxiliary markers",
+      fr: "Deux ou plusieurs types de marqueurs auxiliaires",
+    },
+    longDescription: {
+      en: "Two or more types of auxiliary markers (e.g., neck collar and color leg band or wing tag and radio transmitter). All markers must be described in marker-related fields.",
+      fr: "Deux ou plusieurs types de marqueurs auxiliaires (par exemple, collier cervical et bague de couleur aux pattes ou étiquette d'aile et émetteur radio). Tous les marqueurs doivent être décrits dans les champs liés aux marqueurs.",
+    },
+  },
+  85: {
+    shortDescription: {
+      en: "Miscellaneous (combination or situation not covered by other ai codes)",
+      fr: "Divers (combinaison ou situation non couverte par d'autres codes de renseignements complémentaires)",
+    },
+    longDescription: {
+      en: "Miscellaneous (combination or situation not covered by other additional information codes) - An explanation is needed in Remarks. For example, a bird that was color-banded, sexed by laparotomy, and blood-sampled would be 385 with an explanation 385 = C/B, laparotomy, blood sample. All markers must be described in marker-related fields.",
+      fr: "Divers (combinaison ou situation non couverte par d'autres codes de renseignements complémentaires) - Une explication est nécessaire dans les remarques. Par exemple, un oiseau qui a été bagué de couleur, sexé par laparotomie et échantillonné en sang serait 385 avec une explication 385 = C/B, laparotomie, prélèvement sanguin. Tous les marqueurs doivent être décrits dans les champs liés aux marqueurs.",
+    },
+  },
+};
+
+const auxMarkerCategories = new Set<InfoCategory>([
+  "VisualAuxMarker",
+  "ElectronicAuxMarker",
+]);
+
+export const auxMarkerCodes: InfoCode[] = infoCodeList.filter((code) =>
+  auxMarkerCategories.has(infoCodes[code].category),
+);
