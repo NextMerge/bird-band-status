@@ -18,7 +18,7 @@ function RootComponent() {
       </LocaleProvider>
       <TanStackDevtools
         config={{
-          position: "bottom-right",
+          position: "top-right",
         }}
         plugins={[
           {
