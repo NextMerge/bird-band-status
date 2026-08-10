@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 80,
+  "sortTailwindcss": {
+    "functions": ["twMerge"]
+  },
+  "sortImports": true,
+  "sortPackageJson": {
+    "sortScripts": true
+  },
+  "ignorePatterns": [
+    "pnpm-lock.yaml",
+    ".pnp",
+    ".pnp.js",
+    "tsconfig.json",
+    "tsconfig.*.json",
+    ".oxlintrc.json",
+    ".oxlintrc.*.json",
+    ".gitignore"
+  ]
+}

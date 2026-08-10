@@ -1,11 +1,17 @@
 {
-  "chosenAddOns": ["eslint", "shadcn", "t3env"],
-  "framework": "react-cra",
-  "git": true,
+  "projectName": "bird-band-status",
   "mode": "file-router",
-  "packageManager": "pnpm",
-  "projectName": "bird-banding",
-  "tailwind": true,
   "typescript": true,
-  "version": 1
+  "packageManager": "pnpm",
+  "includeExamples": false,
+  "tailwind": true,
+  "projectPreset": "default",
+  "addOnOptions": {},
+  "git": false,
+  "install": true,
+  "intent": true,
+  "routerOnly": true,
+  "version": 1,
+  "framework": "react",
+  "chosenAddOns": []
 }

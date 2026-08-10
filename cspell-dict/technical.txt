@@ -1,8 +1,0 @@
-clsx
-corvu
-kobalte
-lockb
-solidjs
-tailwindcss
-tseslint
-vinxi

@@ -1,0 +1,64 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": true
+  },
+  "env": {
+    "browser": true
+  },
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "react"],
+  "categories": {
+    "correctness": "error",
+    "pedantic": "error",
+    "perf": "error",
+    "style": "error",
+    "suspicious": "error"
+  },
+  "rules": {
+    // Customized rules
+    "no-console": "error",
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/no-deprecated": "warn",
+    "react/button-has-type": "error",
+    "typescript/prefer-readonly-parameter-types": "off",
+    "@typescript-eslint/consistent-type-imports": ["error", { "fixStyle": "inline-type-imports" }],
+
+    // Rules that we should keep off
+    "@typescript-eslint/require-await": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "typescript/only-throw-error": "off",
+    "arrow-body-style": "off",
+    "capitalized-comments": "off",
+    "func-style": "off",
+    "id-length": "off",
+    "max-lines": "off",
+    "max-lines-per-function": "off",
+    "max-statements": "off",
+    "no-continue": "off",
+    "no-inline-comments": "off",
+    "no-magic-numbers": "off",
+    "no-map-spread": "off",
+    "no-negated-condition": "off",
+    "no-null": "off",
+    "no-ternary": "off",
+    "no-warning-comments": "off",
+    "prefer-destructuring": "off",
+    "require-await": "off",
+    "sort-imports": "off",
+    "sort-keys": "off",
+    "new-cap": "off",
+    "no-nested-ternary": "off",
+    "max-params": "off",
+    "init-declarations": "off",
+    "unicorn/no-nested-ternary": "off",
+    "unicorn/filename-case": "off",
+    "react/jsx-max-depth": "off",
+    "react/no-children-prop": "off",
+    "react/display-name": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-handler-names": "off",
+    "react/jsx-boolean-value": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "react/jsx-props-no-spreading": "off"
+  }
+}
