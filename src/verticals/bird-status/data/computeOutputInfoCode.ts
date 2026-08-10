@@ -31,7 +31,6 @@ export function computeOutputInfoCode(inputCodes: InfoCode[]): OutputInfoCode {
   }
 
   if (nonAuxCodes.length === 1) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return infoCodes[nonAuxCodes[0]].auxiliaryVariant!;
   }
 

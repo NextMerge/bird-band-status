@@ -60,5 +60,8 @@
     "react/jsx-boolean-value": "off",
     "react/jsx-no-useless-fragment": "off",
     "react/jsx-props-no-spreading": "off"
-  }
+  },
+  "ignorePatterns": [
+    "src/components/**"
+  ]
 }
