@@ -29,7 +29,7 @@ import { useSelectedCodes } from "./SelectedCodesContext";
 export function Sidebar() {
   const locale = useLocale();
   const setLocale = useSetLocale();
-  const { selectedCodes, toggleCode } = useSelectedCodes();
+  const { selectedCodes, toggleCode, clearCodes } = useSelectedCodes();
 
   // ponytail: bird status is local state only used to build the displayed status code; it does not yet filter or validate the available info codes.
   const [birdStatus, setBirdStatus] = useState(defaultBirdStatus);
@@ -160,9 +160,22 @@ export function Sidebar() {
 
       <div className="mt-auto space-y-3">
         <div className="space-y-2">
-          <h2 className="text-sm font-semibold">
-            {uiLocale.output.activeInfoCodes[locale]}
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-semibold">
+              {uiLocale.output.activeInfoCodes[locale]}
+            </h2>
+            {selectedCodes.size > 0 && (
+              <Button
+                variant="ghost"
+                size="xs"
+                onClick={() => {
+                  clearCodes();
+                }}
+              >
+                {uiLocale.output.clearSelections[locale]}
+              </Button>
+            )}
+          </div>
           <ScrollArea className="border-border h-48 rounded-lg border">
             {selectedCodes.size === 0 ? (
               <p className="text-muted-foreground p-2 text-sm">

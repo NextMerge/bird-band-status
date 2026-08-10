@@ -11,6 +11,7 @@ import type { InfoCode } from "../data/infoCodes";
 type SelectedCodesContextValue = {
   selectedCodes: ReadonlySet<InfoCode>;
   toggleCode: (code: InfoCode) => void;
+  clearCodes: () => void;
 };
 
 const SelectedCodesContext = createContext<SelectedCodesContextValue | null>(
@@ -48,9 +49,13 @@ export function SelectedCodesProvider({
     });
   }, []);
 
+  const clearCodes = useCallback(() => {
+    setSelectedCodes(new Set());
+  }, []);
+
   const theContext = useMemo(
-    () => ({ selectedCodes, toggleCode }),
-    [selectedCodes, toggleCode],
+    () => ({ selectedCodes, toggleCode, clearCodes }),
+    [selectedCodes, toggleCode, clearCodes],
   );
 
   return (
