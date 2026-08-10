@@ -1,4 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 import type { InfoCode } from "../data/infoCodes";
 
@@ -30,7 +36,7 @@ export function SelectedCodesProvider({
     new Set(),
   );
 
-  const toggleCode = (code: InfoCode) => {
+  const toggleCode = useCallback((code: InfoCode) => {
     setSelectedCodes((prev) => {
       const next = new Set(prev);
       if (next.has(code)) {
@@ -40,10 +46,15 @@ export function SelectedCodesProvider({
       }
       return next;
     });
-  };
+  }, []);
+
+  const theContext = useMemo(
+    () => ({ selectedCodes, toggleCode }),
+    [selectedCodes, toggleCode],
+  );
 
   return (
-    <SelectedCodesContext.Provider value={{ selectedCodes, toggleCode }}>
+    <SelectedCodesContext.Provider value={theContext}>
       {children}
     </SelectedCodesContext.Provider>
   );

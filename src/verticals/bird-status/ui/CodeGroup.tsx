@@ -12,7 +12,9 @@ export function CodeGroup({ codes }: { codes: readonly InfoCode[] }) {
           key={code}
           code={code}
           pressed={selectedCodes.has(code)}
-          onPressedChange={() => toggleCode(code)}
+          onPressedChange={() => {
+            toggleCode(code);
+          }}
         />
       ))}
     </div>

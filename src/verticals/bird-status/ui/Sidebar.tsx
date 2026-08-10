@@ -1,7 +1,8 @@
+import { Link } from "@tanstack/react-router";
 import { Bird } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import { Button } from "#/components/ui/button.tsx";
+import { Button, buttonVariants } from "#/components/ui/button.tsx";
 import {
   Item,
   ItemActions,
@@ -9,22 +10,25 @@ import {
   ItemMedia,
   ItemTitle,
 } from "#/components/ui/item.tsx";
+import { LanguageToggleGroup } from "#/components/ui/language-toggle-group.tsx";
 import {
   NativeSelect,
   NativeSelectOption,
 } from "#/components/ui/native-select.tsx";
 import { ScrollArea } from "#/components/ui/scroll-area.tsx";
 import { toast } from "#/components/ui/toast.tsx";
+import { cn } from "#/lib/utils.ts";
 
 import { birdStatuses, defaultBirdStatus } from "../data/birdStatus";
 import { computeOutputInfoCode } from "../data/computeOutputInfoCode";
 import { getInfoCodeText } from "../data/getInfoCodeText";
-import { useLocale } from "../locale/LocaleContext";
+import { useLocale, useSetLocale } from "../locale/LocaleContext";
 import { uiLocale } from "../locale/uiLocale";
 import { useSelectedCodes } from "./SelectedCodesContext";
 
 export function Sidebar() {
   const locale = useLocale();
+  const setLocale = useSetLocale();
   const { selectedCodes, toggleCode } = useSelectedCodes();
 
   // ponytail: bird status is local state only used to build the displayed status code; it does not yet filter or validate the available info codes.
@@ -41,7 +45,7 @@ export function Sidebar() {
   sortedSelectedCodes.sort((a, b) => a - b);
 
   // Flash the status code number whenever the selection or bird status changes.
-  const [statusFlashKey, setStatusFlashKey] = useState(0);
+  const [statusFlashCount, setStatusFlashCount] = useState(0);
   const isFirstStatusFlashRef = useRef(true);
 
   useEffect(() => {
@@ -49,7 +53,7 @@ export function Sidebar() {
       isFirstStatusFlashRef.current = false;
       return;
     }
-    setStatusFlashKey((key) => key + 1);
+    setStatusFlashCount((count) => count + 1);
   }, [selectedCodes, birdStatus]);
 
   const copyStatusCode = async () => {
@@ -125,12 +129,15 @@ export function Sidebar() {
           </h2>
           <div className="flex flex-col gap-2">
             <button
-              key={statusFlashKey}
+              key={statusFlashCount}
               type="button"
               onClick={() => {
                 void copyStatusCode();
               }}
-              className="text-primary-foreground flex size-20 w-full animate-[flash_0.5s_ease-in-out] cursor-pointer items-center justify-center rounded-xl font-mono text-4xl font-semibold transition-opacity hover:opacity-90"
+              className={cn(
+                "text-primary-foreground flex size-20 w-full cursor-pointer items-center justify-center rounded-xl font-mono text-4xl font-semibold transition-opacity hover:opacity-90",
+                statusFlashCount > 0 && "animate-[flash_0.5s_ease-in-out]",
+              )}
             >
               {statusCode.toString().padStart(3, "0")}
             </button>
@@ -170,7 +177,7 @@ export function Sidebar() {
                       key={code}
                       size="xs"
                       variant="outline"
-                      className={"flex-nowrap gap-1 border-none p-px"}
+                      className="flex-nowrap gap-1 border-none p-px"
                     >
                       <ItemMedia className="flex size-8 items-center justify-center rounded-md font-mono text-sm font-semibold">
                         {code.toString().padStart(2, "0")}
@@ -197,6 +204,19 @@ export function Sidebar() {
               </div>
             )}
           </ScrollArea>
+        </div>
+        <div className="flex gap-2">
+          <Link
+            to="/mortalities"
+            className={cn(buttonVariants({ variant: "outline" }), "flex-1")}
+          >
+            {uiLocale.header.mortalityButton[locale]}
+          </Link>
+          <LanguageToggleGroup
+            value={locale}
+            onChange={setLocale}
+            className="w-full flex-1"
+          />
         </div>
         <p className="text-muted-foreground text-center text-xs">
           {uiLocale.header.madeBy[locale]} ·{" "}
