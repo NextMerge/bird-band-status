@@ -347,3 +347,17 @@ const auxMarkerCategories = new Set<InfoCategory>([
 export const auxMarkerCodes: InfoCode[] = infoCodeList.filter((code) =>
   auxMarkerCategories.has(infoCodes[code].category),
 );
+
+export function isCodeAllowedWithBirdStatus(
+  code: InfoCode,
+  birdStatus: BirdStatusCode,
+): boolean {
+  const entry = infoCodes[code];
+  if (entry.canOnlyBeUsedWithBirdStatus) {
+    return entry.canOnlyBeUsedWithBirdStatus.includes(birdStatus);
+  }
+  if (entry.canNotBeUsedWithBirdStatus) {
+    return !entry.canNotBeUsedWithBirdStatus.includes(birdStatus);
+  }
+  return true;
+}

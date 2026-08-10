@@ -19,20 +19,18 @@ import { ScrollArea } from "#/components/ui/scroll-area.tsx";
 import { toast } from "#/components/ui/toast.tsx";
 import { cn } from "#/lib/utils.ts";
 
-import { birdStatuses, defaultBirdStatus } from "../data/birdStatus";
+import { birdStatuses } from "../data/birdStatus";
 import { computeOutputInfoCode } from "../data/computeOutputInfoCode";
 import { getInfoCodeText } from "../data/getInfoCodeText";
 import { useLocale, useSetLocale } from "../locale/LocaleContext";
 import { uiLocale } from "../locale/uiLocale";
-import { useSelectedCodes } from "./SelectedCodesContext";
+import { useBirdStatus, useSelectedCodes } from "./SelectedCodesContext";
 
 export function Sidebar() {
   const locale = useLocale();
   const setLocale = useSetLocale();
   const { selectedCodes, toggleCode, clearCodes } = useSelectedCodes();
-
-  // ponytail: bird status is local state only used to build the displayed status code; it does not yet filter or validate the available info codes.
-  const [birdStatus, setBirdStatus] = useState(defaultBirdStatus);
+  const { birdStatus, setBirdStatus } = useBirdStatus();
 
   const outputInfoCode = computeOutputInfoCode([...selectedCodes]);
   const outputText = getInfoCodeText(outputInfoCode, locale);
@@ -105,7 +103,11 @@ export function Sidebar() {
           id="bird-status"
           value={birdStatus.toString()}
           onChange={(event) => {
-            setBirdStatus(Number(event.target.value));
+            const value = Number(event.target.value);
+            const nextStatus = birdStatuses.find((status) => status === value);
+            if (nextStatus) {
+              setBirdStatus(nextStatus);
+            }
           }}
           className="w-full"
         >

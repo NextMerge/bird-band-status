@@ -1,20 +1,28 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 
 import { Separator } from "#/components/ui/separator.tsx";
 import { Toggle } from "#/components/ui/toggle.tsx";
 
+import type { BirdStatusCode } from "../data/birdStatus";
 import { getInfoCodeText } from "../data/getInfoCodeText";
-import type { InfoCode } from "../data/infoCodes";
+import {
+  type InfoCode,
+  infoCodes,
+  isCodeAllowedWithBirdStatus,
+} from "../data/infoCodes";
 import { useLocale } from "../locale/LocaleContext";
+import { uiLocale } from "../locale/uiLocale";
 
 type CodeToggleItemProps = {
   code: InfoCode;
+  birdStatus: BirdStatusCode;
   pressed: boolean;
   onPressedChange: (pressed: boolean) => void;
 };
 
 export function CodeToggleItem({
   code,
+  birdStatus,
   pressed,
   onPressedChange,
 }: CodeToggleItemProps) {
@@ -22,18 +30,40 @@ export function CodeToggleItem({
   const { shortDescription, longDescription } = getInfoCodeText(code, locale);
   const mouseToggled = useRef(false);
 
+  const disabledReason = useMemo(() => {
+    if (isCodeAllowedWithBirdStatus(code, birdStatus)) {
+      return null;
+    }
+    const entry = infoCodes[code];
+    if (entry.canOnlyBeUsedWithBirdStatus) {
+      return {
+        type: "canOnlyBeUsedWith" as const,
+        statuses: entry.canOnlyBeUsedWithBirdStatus,
+      };
+    }
+    return { type: "canNotBeUsedWith" as const, status: birdStatus };
+  }, [code, birdStatus]);
+  const disabled = disabledReason !== null;
+
   return (
     <div className="flex flex-col gap-px pt-px">
       <Toggle
         pressed={pressed}
+        disabled={disabled}
         onPressedChange={(p) => {
           if (mouseToggled.current) {
             mouseToggled.current = false;
             return;
           }
+          if (disabled) {
+            return;
+          }
           onPressedChange(p);
         }}
         onMouseDown={() => {
+          if (disabled) {
+            return;
+          }
           mouseToggled.current = true;
           onPressedChange(!pressed);
         }}
@@ -51,6 +81,19 @@ export function CodeToggleItem({
           </span>
         ) : null}
       </Toggle>
+      {disabledReason ? (
+        <p className="text-muted-foreground px-3 py-1 text-xs">
+          {disabledReason.type === "canOnlyBeUsedWith"
+            ? uiLocale.codeToggle.disabledNote.canOnlyBeUsedWith[locale](
+                code,
+                disabledReason.statuses,
+              )
+            : uiLocale.codeToggle.disabledNote.canNotBeUsedWith[locale](
+                code,
+                disabledReason.status,
+              )}
+        </p>
+      ) : null}
       <Separator />
     </div>
   );

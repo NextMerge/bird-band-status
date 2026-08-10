@@ -179,4 +179,20 @@ export const uiLocale = {
       fr: "Fermer",
     },
   },
+  codeToggle: {
+    disabledNote: {
+      canOnlyBeUsedWith: {
+        en: (code: number, statuses: number[]) =>
+          `Code ${code.toString().padStart(2, "0")} can only be used with bird statuses ${statuses.map((s) => s.toString().padStart(2, "0")).join(", ")}.`,
+        fr: (code: number, statuses: number[]) =>
+          `Le code ${code.toString().padStart(2, "0")} ne peut être utilisé qu'avec les états d'oiseau ${statuses.map((s) => s.toString().padStart(2, "0")).join(", ")}.`,
+      },
+      canNotBeUsedWith: {
+        en: (code: number, status: number) =>
+          `Code ${code.toString().padStart(2, "0")} cannot be used with bird status ${status.toString().padStart(2, "0")}.`,
+        fr: (code: number, status: number) =>
+          `Le code ${code.toString().padStart(2, "0")} ne peut pas être utilisé avec l'état d'oiseau ${status.toString().padStart(2, "0")}.`,
+      },
+    },
+  },
 };
