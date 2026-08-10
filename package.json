@@ -12,6 +12,7 @@
     "fmt:check": "oxfmt --check",
     "generate-routes": "tsr generate",
     "lint": "oxlint",
+    "prepare": "husky",
     "preview": "vite preview",
     "spell": "cspell . --quiet"
   },
@@ -41,11 +42,16 @@
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
     "cspell": "^10.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0",
     "oxfmt": "^0.62.0",
     "oxlint": "^1.77.0",
     "oxlint-tsgolint": "^7.0.2001",
     "typescript": "^7.0.2",
     "vite": "^8.0.0"
+  },
+  "lint-staged": {
+    "*": "oxfmt"
   },
   "engines": {
     "node": ">=24",

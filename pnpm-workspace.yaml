@@ -2,5 +2,5 @@ allowBuilds:
   esbuild: true
   lightningcss: true
 minimumReleaseAgeExclude:
-  - '@tanstack/router-core@1.171.21'
-  - '@tanstack/router-generator@1.167.27'
+  - "@tanstack/router-core@1.171.21"
+  - "@tanstack/router-generator@1.167.27"
