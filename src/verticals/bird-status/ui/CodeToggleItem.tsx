@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import { Separator } from "#/components/ui/separator.tsx";
 import { Toggle } from "#/components/ui/toggle.tsx";
 
@@ -18,12 +20,23 @@ export function CodeToggleItem({
 }: CodeToggleItemProps) {
   const locale = useLocale();
   const { shortDescription, longDescription } = getInfoCodeText(code, locale);
+  const mouseToggled = useRef(false);
 
   return (
     <div className="flex flex-col gap-px pt-px">
       <Toggle
         pressed={pressed}
-        onPressedChange={onPressedChange}
+        onPressedChange={(p) => {
+          if (mouseToggled.current) {
+            mouseToggled.current = false;
+            return;
+          }
+          onPressedChange(p);
+        }}
+        onMouseDown={() => {
+          mouseToggled.current = true;
+          onPressedChange(!pressed);
+        }}
         className="aria-pressed:border-primary aria-pressed:bg-primary/10 grid h-auto w-full cursor-pointer grid-cols-[auto_1fr] items-start gap-x-3 gap-y-0.5 overflow-hidden rounded-sm px-3 py-1 text-start whitespace-normal lg:grid-cols-[auto_3fr_5fr]"
       >
         <span className="bg-muted text-muted-foreground group-aria-pressed/toggle:bg-primary group-aria-pressed/toggle:text-primary-foreground flex size-12 shrink-0 items-center justify-center rounded-md font-mono text-2xl font-semibold">

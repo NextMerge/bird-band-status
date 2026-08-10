@@ -142,6 +142,22 @@ export const uiLocale = {
       en: "Status code:",
       fr: "Code d'état :",
     },
+    moreDetails: {
+      en: "Details",
+      fr: "Détails",
+    },
+    copiedStatusCode: {
+      en: "Status code copied",
+      fr: "Code d'état copié",
+    },
+    copyFailed: {
+      en: "Copy failed",
+      fr: "Échec de la copie",
+    },
+    copyFailedDescription: {
+      en: "Could not copy the status code.",
+      fr: "Impossible de copier le code d'état.",
+    },
     clearSelections: {
       en: "Clear selections",
       fr: "Effacer les sélections",

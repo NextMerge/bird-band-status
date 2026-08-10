@@ -133,6 +133,15 @@ body {
   --sidebar-ring: oklch(0.542 0.034 322.5);
 }
 
+@keyframes flash {
+  0% {
+    box-shadow: 0 0 0 4px var(--color-primary-foreground);
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -1,5 +1,5 @@
 import { Bird } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "#/components/ui/button.tsx";
 import {
@@ -13,6 +13,8 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "#/components/ui/native-select.tsx";
+import { ScrollArea } from "#/components/ui/scroll-area.tsx";
+import { toast } from "#/components/ui/toast.tsx";
 
 import { birdStatuses, defaultBirdStatus } from "../data/birdStatus";
 import { computeOutputInfoCode } from "../data/computeOutputInfoCode";
@@ -37,6 +39,36 @@ export function Sidebar() {
   const sortedSelectedCodes = [...selectedCodes];
   // oxlint-disable-next-line unicorn/no-array-sort
   sortedSelectedCodes.sort((a, b) => a - b);
+
+  // Flash the status code number whenever the selection or bird status changes.
+  const [statusFlashKey, setStatusFlashKey] = useState(0);
+  const isFirstStatusFlashRef = useRef(true);
+
+  useEffect(() => {
+    if (isFirstStatusFlashRef.current) {
+      isFirstStatusFlashRef.current = false;
+      return;
+    }
+    setStatusFlashKey((key) => key + 1);
+  }, [selectedCodes, birdStatus]);
+
+  const copyStatusCode = async () => {
+    const text = statusCode.toString().padStart(3, "0");
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.add({
+        title: uiLocale.output.copiedStatusCode[locale],
+        description: text,
+        type: "success",
+      });
+    } catch {
+      toast.add({
+        title: uiLocale.output.copyFailed[locale],
+        description: uiLocale.output.copyFailedDescription[locale],
+        type: "error",
+      });
+    }
+  };
 
   return (
     <aside className="flex w-80 shrink-0 flex-col gap-5 overflow-y-auto p-4">
@@ -91,73 +123,93 @@ export function Sidebar() {
           <h2 className="text-sm font-semibold">
             {uiLocale.output.outputCode[locale]}
           </h2>
-          <div className="flex items-center gap-3">
-            <span className="bg-primary text-primary-foreground flex size-12 shrink-0 items-center justify-center rounded-md font-mono text-2xl font-semibold">
+          <div className="flex flex-col gap-2">
+            <button
+              key={statusFlashKey}
+              type="button"
+              onClick={() => {
+                void copyStatusCode();
+              }}
+              className="text-primary-foreground flex size-20 w-full animate-[flash_0.5s_ease-in-out] cursor-pointer items-center justify-center rounded-xl font-mono text-4xl font-semibold transition-opacity hover:opacity-90"
+            >
               {statusCode.toString().padStart(3, "0")}
-            </span>
-            <p className="text-sm leading-snug">
-              {outputText.shortDescription}
-            </p>
+            </button>
+            <div className="flex min-w-0 flex-col gap-1">
+              <p className="text-sm leading-snug">
+                {outputText.shortDescription}
+              </p>
+              {outputText.longDescription && (
+                <details className="text-muted-foreground text-sm leading-snug">
+                  <summary className="text-primary cursor-pointer text-xs font-medium hover:underline">
+                    {uiLocale.output.moreDetails[locale]}
+                  </summary>
+                  {outputText.longDescription}
+                </details>
+              )}
+            </div>
           </div>
         </div>
+      </div>
 
+      <div className="mt-auto space-y-3">
         <div className="space-y-2">
           <h2 className="text-sm font-semibold">
             {uiLocale.output.activeInfoCodes[locale]}
           </h2>
-          {selectedCodes.size === 0 ? (
-            <p className="text-muted-foreground text-sm">
-              {uiLocale.output.noActiveInfoCodes[locale]}
-            </p>
-          ) : (
-            <div className="flex flex-col gap-1">
-              {sortedSelectedCodes.map((code) => {
-                const { shortDescription } = getInfoCodeText(code, locale);
-                return (
-                  <Item
-                    key={code}
-                    size="xs"
-                    variant="outline"
-                    className="gap-1 border-none p-px"
-                  >
-                    <ItemMedia className="flex size-8 items-center justify-center rounded-md font-mono text-sm font-semibold">
-                      {code.toString().padStart(2, "0")}
-                    </ItemMedia>
-                    <ItemContent className="min-w-0">
-                      <ItemTitle className="line-clamp-1 truncate text-xs text-ellipsis">
-                        {shortDescription}
-                      </ItemTitle>
-                    </ItemContent>
-                    <ItemActions>
-                      <Button
-                        variant="destructive"
-                        size="xs"
-                        onClick={() => {
-                          toggleCode(code);
-                        }}
-                      >
-                        {uiLocale.output.removeCode[locale]}
-                      </Button>
-                    </ItemActions>
-                  </Item>
-                );
-              })}
-            </div>
-          )}
+          <ScrollArea className="border-border h-48 rounded-lg border">
+            {selectedCodes.size === 0 ? (
+              <p className="text-muted-foreground p-2 text-sm">
+                {uiLocale.output.noActiveInfoCodes[locale]}
+              </p>
+            ) : (
+              <div className="flex flex-col gap-1 p-2">
+                {sortedSelectedCodes.map((code) => {
+                  const { shortDescription } = getInfoCodeText(code, locale);
+                  return (
+                    <Item
+                      key={code}
+                      size="xs"
+                      variant="outline"
+                      className={"flex-nowrap gap-1 border-none p-px"}
+                    >
+                      <ItemMedia className="flex size-8 items-center justify-center rounded-md font-mono text-sm font-semibold">
+                        {code.toString().padStart(2, "0")}
+                      </ItemMedia>
+                      <ItemContent className="min-w-0">
+                        <ItemTitle className="line-clamp-1 truncate text-xs text-ellipsis">
+                          {shortDescription}
+                        </ItemTitle>
+                      </ItemContent>
+                      <ItemActions className="shrink-0">
+                        <Button
+                          variant="destructive"
+                          size="xs"
+                          onClick={() => {
+                            toggleCode(code);
+                          }}
+                        >
+                          {uiLocale.output.removeCode[locale]}
+                        </Button>
+                      </ItemActions>
+                    </Item>
+                  );
+                })}
+              </div>
+            )}
+          </ScrollArea>
         </div>
+        <p className="text-muted-foreground text-center text-xs">
+          {uiLocale.header.madeBy[locale]} ·{" "}
+          <a
+            href="https://github.com/NextMerge/bird-band-status"
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary underline underline-offset-4"
+          >
+            {uiLocale.header.sourceCode[locale]}
+          </a>
+        </p>
       </div>
-
-      <p className="text-muted-foreground mt-auto text-center text-xs">
-        {uiLocale.header.madeBy[locale]} ·{" "}
-        <a
-          href="https://github.com/NextMerge/bird-band-status"
-          target="_blank"
-          rel="noreferrer"
-          className="text-primary underline underline-offset-4"
-        >
-          {uiLocale.header.sourceCode[locale]}
-        </a>
-      </p>
     </aside>
   );
 }
