@@ -4,3 +4,4 @@ Rspack
 tsgolint
 shadcn
 fontsource
+Jarjour
