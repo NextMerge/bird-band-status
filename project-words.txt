@@ -1,0 +1,6 @@
+Supabase
+unawaited
+Rspack
+tsgolint
+shadcn
+fontsource

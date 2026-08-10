@@ -16,6 +16,7 @@
     "tsconfig.*.json",
     ".oxlintrc.json",
     ".oxlintrc.*.json",
-    ".gitignore"
+    ".gitignore",
+    "routeTree.gen.ts"
   ]
 }
