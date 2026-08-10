@@ -1,5 +1,3 @@
-import { Separator } from "#/components/ui/separator.tsx";
-
 import type { InfoCode } from "../data/infoCodes";
 import { CodeToggleItem } from "./CodeToggleItem";
 import { useSelectedCodes } from "./SelectedCodesContext";

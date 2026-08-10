@@ -18,7 +18,7 @@ function Home() {
         <div className="flex h-dvh overscroll-none bg-[oklch(0.16_0.025_326)]">
           <Sidebar />
           <main className="bg-card mt-3 flex-1 overflow-auto rounded-tl-2xl border">
-            <div className="mx-auto h-full max-w-300 p-6">
+            <div className="mx-auto h-full max-w-300 p-6 pt-3">
               <CodeGroup codes={infoCodeList} />
             </div>
           </main>

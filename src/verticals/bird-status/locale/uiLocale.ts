@@ -16,9 +16,19 @@ export const uiLocale = {
     },
   },
   header: {
-    headerTitle: {
-      en: "Compute the bird banding status code for the",
-      fr: "Calcule le code d'état de baguage d'oiseaux pour le",
+    instructions: {
+      before: {
+        en: "Select one or more of the status codes on the right to compute the code to be given to the ",
+        fr: "Sélectionnez un ou plusieurs codes d'état à droite pour calculer le code à fournir à la ",
+      },
+      link: {
+        en: "North American Bird Banding Lab database",
+        fr: "base de données du North American Bird Banding Lab",
+      },
+      after: {
+        en: ".",
+        fr: ".",
+      },
     },
     headerNotice: {
       en: "This tool is not affiliated with the USGS Bird Banding Lab or the CWS Bird Banding Office.",
@@ -40,9 +50,37 @@ export const uiLocale = {
       en: "Mortalities",
       fr: "Mortalités",
     },
-    birdBandingProgramLink: {
-      en: "North American Bird Banding Program",
-      fr: "Programme nord-américain de baguage",
+  },
+  birdStatus: {
+    selectLabel: {
+      en: "Bird status:",
+      fr: "État de l'oiseau :",
+    },
+    status: {
+      2: {
+        en: "Transported",
+        fr: "Transporté",
+      },
+      3: {
+        en: "Normal wild bird",
+        fr: "Oiseau sauvage normal",
+      },
+      4: {
+        en: "Hand-reared, game-farm or hacked bird",
+        fr: "Oiseau élevé en captivité ou hacké",
+      },
+      5: {
+        en: "Sick, Exhausted, Over-stressed, Injured, or Physical Deformity",
+        fr: "Malade, épuisé, sur-stressé, blessé ou difformité physique",
+      },
+      7: {
+        en: "Rehabilitated and held",
+        fr: "Réhabilité et détenu",
+      },
+      8: {
+        en: "Held for longer than 24 hours for experimental or other purposes",
+        fr: "Détenu plus de 24 heures à des fins expérimentales ou autres",
+      },
     },
   },
   table: {
@@ -101,8 +139,8 @@ export const uiLocale = {
       fr: "Sélectionnez un code d'état:",
     },
     outputCode: {
-      en: "Output code:",
-      fr: "Code de sortie :",
+      en: "Status code:",
+      fr: "Code d'état :",
     },
     clearSelections: {
       en: "Clear selections",
@@ -115,6 +153,10 @@ export const uiLocale = {
     noActiveInfoCodes: {
       en: "No active info codes",
       fr: "Aucun code d'info actif",
+    },
+    removeCode: {
+      en: "Remove",
+      fr: "Retirer",
     },
     closeDrawer: {
       en: "Close",
