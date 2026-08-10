@@ -13,10 +13,12 @@ html,
 body,
 #app {
   min-height: 100%;
+  overscroll-behavior: none;
 }
 
 body {
   margin: 0;
+  overscroll-behavior: none;
 }
 
 @theme inline {
