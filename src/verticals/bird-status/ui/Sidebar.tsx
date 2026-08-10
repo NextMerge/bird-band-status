@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Bird } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ComponentProps } from "react";
 
 import { Button, buttonVariants } from "#/components/ui/button.tsx";
 import {
@@ -26,23 +26,46 @@ import { useLocale, useSetLocale } from "../locale/LocaleContext";
 import { uiLocale } from "../locale/uiLocale";
 import { useBirdStatus, useSelectedCodes } from "./SelectedCodesContext";
 
-export function Sidebar() {
+export function BirdStatusSelect({
+  className,
+  ...props
+}: Omit<ComponentProps<typeof NativeSelect>, "value" | "onChange">) {
   const locale = useLocale();
-  const setLocale = useSetLocale();
-  const { selectedCodes, toggleCode, clearCodes } = useSelectedCodes();
   const { birdStatus, setBirdStatus } = useBirdStatus();
 
+  return (
+    <NativeSelect
+      value={birdStatus.toString()}
+      onChange={(event) => {
+        const value = Number(event.target.value);
+        const nextStatus = birdStatuses.find((status) => status === value);
+        if (nextStatus) {
+          setBirdStatus(nextStatus);
+        }
+      }}
+      className={cn("w-full", className)}
+      {...props}
+    >
+      {birdStatuses.map((code) => (
+        <NativeSelectOption key={code} value={code.toString()}>
+          {code.toString().padStart(2, "0")} –{" "}
+          {uiLocale.birdStatus.status[code][locale]}
+        </NativeSelectOption>
+      ))}
+    </NativeSelect>
+  );
+}
+
+export function StatusCodeCopyButton({ className }: { className?: string }) {
+  const locale = useLocale();
+  const { selectedCodes } = useSelectedCodes();
+  const { birdStatus } = useBirdStatus();
+
   const outputInfoCode = computeOutputInfoCode([...selectedCodes]);
-  const outputText = getInfoCodeText(outputInfoCode, locale);
   const statusCode = Number(
     `${birdStatus}${outputInfoCode.toString().padStart(2, "0")}`,
   );
 
-  const sortedSelectedCodes = [...selectedCodes];
-  // oxlint-disable-next-line unicorn/no-array-sort
-  sortedSelectedCodes.sort((a, b) => a - b);
-
-  // Flash the status code number whenever the selection or bird status changes.
   const [statusFlashCount, setStatusFlashCount] = useState(0);
   const isFirstStatusFlashRef = useRef(true);
 
@@ -73,7 +96,66 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="flex w-80 shrink-0 flex-col gap-5 overflow-y-auto p-4">
+    <button
+      key={statusFlashCount}
+      type="button"
+      onClick={() => {
+        void copyStatusCode();
+      }}
+      className={cn(
+        "text-primary-foreground flex size-20 w-full cursor-pointer items-center justify-center rounded-xl font-mono text-4xl font-semibold transition-opacity hover:opacity-90",
+        statusFlashCount > 0 && "animate-[flash_0.5s_ease-in-out]",
+        className,
+      )}
+    >
+      {statusCode.toString().padStart(3, "0")}
+    </button>
+  );
+}
+
+export function CopyableStatusCode({ className }: { className?: string }) {
+  const locale = useLocale();
+  const { selectedCodes } = useSelectedCodes();
+  const outputInfoCode = computeOutputInfoCode([...selectedCodes]);
+  const outputText = getInfoCodeText(outputInfoCode, locale);
+
+  return (
+    <div className={cn("space-y-4", className)}>
+      <div className="space-y-2">
+        <h2 className="text-sm font-semibold">
+          {uiLocale.output.outputCode[locale]}
+        </h2>
+        <div className="flex flex-col gap-2">
+          <StatusCodeCopyButton />
+          <div className="flex min-w-0 flex-col gap-1">
+            <p className="text-sm leading-snug">
+              {outputText.shortDescription}
+            </p>
+            {outputText.longDescription && (
+              <details className="text-muted-foreground text-sm leading-snug">
+                <summary className="text-primary cursor-pointer text-xs font-medium hover:underline">
+                  {uiLocale.output.moreDetails[locale]}
+                </summary>
+                {outputText.longDescription}
+              </details>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function SidebarContent() {
+  const locale = useLocale();
+  const setLocale = useSetLocale();
+  const { selectedCodes, toggleCode, clearCodes } = useSelectedCodes();
+  const sortedSelectedCodes = [...selectedCodes];
+  // oxlint-disable-next-line unicorn/no-array-sort
+  sortedSelectedCodes.sort((a, b) => a - b);
+
+  return (
+    <>
       <div className="space-y-3">
         <div className="border-border bg-muted/20 flex aspect-square w-24 items-center justify-center rounded-xl border border-dashed">
           <Bird className="text-muted-foreground size-10" />
@@ -99,66 +181,14 @@ export function Sidebar() {
         >
           {uiLocale.birdStatus.selectLabel[locale]}
         </label>
-        <NativeSelect
-          id="bird-status"
-          value={birdStatus.toString()}
-          onChange={(event) => {
-            const value = Number(event.target.value);
-            const nextStatus = birdStatuses.find((status) => status === value);
-            if (nextStatus) {
-              setBirdStatus(nextStatus);
-            }
-          }}
-          className="w-full"
-        >
-          {birdStatuses.map((code) => (
-            <NativeSelectOption key={code} value={code.toString()}>
-              {code.toString().padStart(2, "0")} –{" "}
-              {uiLocale.birdStatus.status[code][locale]}
-            </NativeSelectOption>
-          ))}
-        </NativeSelect>
+        <BirdStatusSelect id="bird-status" />
       </div>
 
       <p className="border-destructive/30 bg-destructive/10 rounded-xl border p-2 text-sm">
         {uiLocale.header.featherSamplingsAndCloacalSwabsNotice[locale]}
       </p>
 
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <h2 className="text-sm font-semibold">
-            {uiLocale.output.outputCode[locale]}
-          </h2>
-          <div className="flex flex-col gap-2">
-            <button
-              key={statusFlashCount}
-              type="button"
-              onClick={() => {
-                void copyStatusCode();
-              }}
-              className={cn(
-                "text-primary-foreground flex size-20 w-full cursor-pointer items-center justify-center rounded-xl font-mono text-4xl font-semibold transition-opacity hover:opacity-90",
-                statusFlashCount > 0 && "animate-[flash_0.5s_ease-in-out]",
-              )}
-            >
-              {statusCode.toString().padStart(3, "0")}
-            </button>
-            <div className="flex min-w-0 flex-col gap-1">
-              <p className="text-sm leading-snug">
-                {outputText.shortDescription}
-              </p>
-              {outputText.longDescription && (
-                <details className="text-muted-foreground text-sm leading-snug">
-                  <summary className="text-primary cursor-pointer text-xs font-medium hover:underline">
-                    {uiLocale.output.moreDetails[locale]}
-                  </summary>
-                  {outputText.longDescription}
-                </details>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+      <CopyableStatusCode />
 
       <div className="mt-auto space-y-3">
         <div className="space-y-2">
@@ -245,6 +275,14 @@ export function Sidebar() {
           </a>
         </p>
       </div>
+    </>
+  );
+}
+
+export function Sidebar() {
+  return (
+    <aside className="flex w-80 shrink-0 flex-col gap-5 overflow-y-auto p-4">
+      <SidebarContent />
     </aside>
   );
 }

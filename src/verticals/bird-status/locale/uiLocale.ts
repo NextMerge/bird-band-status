@@ -50,6 +50,14 @@ export const uiLocale = {
       en: "Mortalities",
       fr: "Mortalités",
     },
+    mobileDrawerTitle: {
+      en: "Details",
+      fr: "Détails",
+    },
+    mobileDrawerDescription: {
+      en: "Selected codes, language, and links",
+      fr: "Codes sélectionnés, langue et liens",
+    },
   },
   birdStatus: {
     selectLabel: {
