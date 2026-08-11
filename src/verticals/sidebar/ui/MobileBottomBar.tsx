@@ -1,4 +1,5 @@
 import { Menu } from "lucide-react";
+import type { ComponentProps } from "react";
 
 import { Button } from "#/components/ui/button.tsx";
 import {
@@ -21,7 +22,7 @@ import { renderSuffixCode } from "../../bird-status/utils/renderSuffixCode";
 import { PrefixCodeSelect } from "./PrefixCodeSelect";
 import { SidebarContent } from "./SidebarContent";
 
-function OpenSidebarDrawerButton() {
+function OpenSidebarDrawerButton(props: ComponentProps<typeof Button>) {
   const locale = useLocale();
   const { prefixCode } = usePrefixCode();
   const { selectedSuffixCodes } = useSelectedSuffixCodes();
@@ -29,6 +30,7 @@ function OpenSidebarDrawerButton() {
 
   return (
     <Button
+      {...props}
       className="relative h-10 flex-1"
       aria-label={uiLocale.header.mobileDrawerTitle[locale]}
     >
