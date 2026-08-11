@@ -18,12 +18,12 @@ export const uiLocale = {
   header: {
     instructions: {
       before: {
-        en: "Select one or more of the status codes on the right to compute the code to be given to the ",
-        fr: "Sélectionnez un ou plusieurs codes d'état à droite pour calculer le code à fournir à la ",
+        en: "Select one or more of the codes on the right to compute the code to be submitted to the ",
+        fr: "Sélectionnez un ou plusieurs codes à droite pour calculer le code à soumettre à la ",
       },
       link: {
-        en: "North American Bird Banding Lab database",
-        fr: "base de données du North American Bird Banding Lab",
+        en: "North American Bird Banding Program database",
+        fr: "base de données du Programme nord-américain de baguage des oiseaux",
       },
       after: {
         en: ".",
