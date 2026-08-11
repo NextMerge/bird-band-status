@@ -2,7 +2,7 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
-import { LocaleProvider } from "../verticals/bird-status/locale/LocaleContext";
+import { LocaleProvider } from "#/locale/LocaleContext.tsx";
 
 import "../styles.css";
 

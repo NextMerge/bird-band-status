@@ -1,26 +1,29 @@
 import { useState } from "react";
 
 import { ToggleGroup, ToggleGroupItem } from "#/components/ui/toggle-group.tsx";
+import { useLocale } from "#/locale/LocaleContext.tsx";
+import { uiLocale } from "#/locale/uiLocale.ts";
 
-import { infoCategories } from "../data/infoCategories";
-import { infoCodes, type InfoCode } from "../data/infoCodes";
-import { useLocale } from "../locale/LocaleContext";
-import { uiLocale } from "../locale/uiLocale";
+import { suffixCategories } from "../data/suffixCategories";
+import { type SuffixCode, suffixCodes } from "../data/suffixCodes";
 import { CodeToggleItem } from "./CodeToggleItem";
-import { useBirdStatus, useSelectedCodes } from "./SelectedCodesContext";
+import {
+  usePrefixCode,
+  useSelectedSuffixCodes,
+} from "./SelectedSuffixCodesContext";
 
-const categoryOptions = ["All", ...infoCategories] as const;
+const categoryOptions = ["All", ...suffixCategories] as const;
 
-export function CodeGroup({ codes }: { codes: readonly InfoCode[] }) {
-  const { selectedCodes, toggleCode } = useSelectedCodes();
-  const { birdStatus } = useBirdStatus();
+export function SuffixCodeTable({ codes }: { codes: readonly SuffixCode[] }) {
+  const { selectedSuffixCodes, toggleSuffixCode } = useSelectedSuffixCodes();
+  const { prefixCode } = usePrefixCode();
   const locale = useLocale();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   const filteredCodes =
     selectedCategory === "All"
       ? codes
-      : codes.filter((code) => infoCodes[code].category === selectedCategory);
+      : codes.filter((code) => suffixCodes[code].category === selectedCategory);
 
   return (
     <div className="flex flex-col gap-1">
@@ -44,10 +47,10 @@ export function CodeGroup({ codes }: { codes: readonly InfoCode[] }) {
         <CodeToggleItem
           key={code}
           code={code}
-          birdStatus={birdStatus}
-          pressed={selectedCodes.has(code)}
+          prefixCode={prefixCode}
+          pressed={selectedSuffixCodes.has(code)}
           onPressedChange={() => {
-            toggleCode(code);
+            toggleSuffixCode(code);
           }}
         />
       ))}

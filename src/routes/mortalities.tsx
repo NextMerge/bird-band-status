@@ -2,8 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 // cspell:disable
 import { Button } from "#/components/ui/button.tsx";
-
-import { useLocale } from "../verticals/bird-status/locale/LocaleContext";
+import { useLocale } from "#/locale/LocaleContext.tsx";
 
 export const Route = createFileRoute("/mortalities")({
   component: MortalitiesPage,

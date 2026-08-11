@@ -1,4 +1,4 @@
-export const infoCategories = [
+export const suffixCategories = [
   "Sample",
   "CaptureMethod",
   "VisualAuxMarker",
@@ -6,4 +6,4 @@ export const infoCategories = [
   "Other",
 ] as const;
 
-export type InfoCategory = (typeof infoCategories)[number];
+export type SuffixCategory = (typeof suffixCategories)[number];

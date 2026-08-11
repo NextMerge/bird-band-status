@@ -1,18 +1,18 @@
-import type { BirdStatusCode } from "./birdStatus";
-import type { InfoCategory } from "./infoCategories";
+import type { PrefixCode } from "./prefixCode";
+import type { SuffixCategory } from "./suffixCategories";
 
 type LocalizedText = { en: string; fr: string };
 
-export const infoCodeList = [
+export const suffixCodeList = [
   1, 2, 3, 4, 6, 7, 8, 9, 11, 14, 16, 18, 20, 33, 39, 40, 51, 59, 69, 70, 75,
   80, 81, 87, 90,
 ] as const;
-export type InfoCode = (typeof infoCodeList)[number];
+export type SuffixCode = (typeof suffixCodeList)[number];
 
-export const auxVariantInfoCodes = [
+export const auxVariantSuffixCodes = [
   10, 12, 15, 17, 19, 21, 29, 30, 34, 41, 71, 88,
 ] as const;
-export type AuxVariantInfoCode = (typeof auxVariantInfoCodes)[number];
+export type AuxVariantSuffixCode = (typeof auxVariantSuffixCodes)[number];
 
 export const specialOutputCodes = {
   none: 0,
@@ -22,19 +22,22 @@ export const specialOutputCodes = {
 export type SpecialOutputCode =
   (typeof specialOutputCodes)[keyof typeof specialOutputCodes];
 
-export type OutputInfoCode = InfoCode | AuxVariantInfoCode | SpecialOutputCode;
+export type OutputSuffixCode =
+  | SuffixCode
+  | AuxVariantSuffixCode
+  | SpecialOutputCode;
 
-type InfoCodeEntry = {
-  category: InfoCategory;
-  auxiliaryVariant?: AuxVariantInfoCode;
-  canOnlyBeUsedWithBirdStatus?: BirdStatusCode[];
-  canNotBeUsedWithBirdStatus?: BirdStatusCode[];
+type SuffixCodeEntry = {
+  category: SuffixCategory;
+  auxiliaryVariant?: AuxVariantSuffixCode;
+  canOnlyBeUsedWithPrefixCode?: PrefixCode[];
+  canNotBeUsedWithPrefixCode?: PrefixCode[];
   shortDescription: LocalizedText;
   longDescription?: LocalizedText;
   shortDescriptionSuffix?: LocalizedText;
 };
 
-export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
+export const suffixCodes: Record<SuffixCode, SuffixCodeEntry> = {
   1: {
     category: "VisualAuxMarker",
     shortDescription: {
@@ -59,7 +62,7 @@ export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
   },
   3: {
     category: "VisualAuxMarker",
-    canOnlyBeUsedWithBirdStatus: [3],
+    canOnlyBeUsedWithPrefixCode: [3],
     shortDescription: {
       en: "Reward band (Federal or State)",
       fr: "Bague de récompense (fédérale ou d'État)",
@@ -67,7 +70,7 @@ export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
   },
   4: {
     category: "VisualAuxMarker",
-    canOnlyBeUsedWithBirdStatus: [3],
+    canOnlyBeUsedWithPrefixCode: [3],
     shortDescription: {
       en: "Control band (Reward band studies only)",
       fr: "Bague de contrôle (études de bagues de récompense uniquement)",
@@ -119,7 +122,7 @@ export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
   9: {
     category: "Other",
     auxiliaryVariant: 10,
-    canOnlyBeUsedWithBirdStatus: [2, 3, 4, 8],
+    canOnlyBeUsedWithPrefixCode: [2, 3, 4, 8],
     shortDescription: {
       en: "All flight feathers on one or both wings clipped or pulled upon release",
       fr: "Toutes les plumes de vol d'une ou des deux ailes coupées ou arrachées lors de la remise en liberté",
@@ -152,7 +155,7 @@ export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
   18: {
     category: "Sample",
     auxiliaryVariant: 19,
-    canNotBeUsedWithBirdStatus: [7],
+    canNotBeUsedWithPrefixCode: [7],
     shortDescription: {
       en: "Blood sample taken",
       fr: "Prélèvement sanguin effectué",
@@ -173,7 +176,7 @@ export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
   33: {
     category: "CaptureMethod",
     auxiliaryVariant: 34,
-    canNotBeUsedWithBirdStatus: [7],
+    canNotBeUsedWithPrefixCode: [7],
     shortDescription: {
       en: "Taken from an artificial nest structure (eg, nest boxes, platforms, etc)",
       fr: "Pris dans une structure de nid artificielle (par exemple, nichoirs, plateformes, etc.)",
@@ -197,7 +200,7 @@ export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
   40: {
     category: "Other",
     auxiliaryVariant: 41,
-    canOnlyBeUsedWithBirdStatus: [4, 5, 7],
+    canOnlyBeUsedWithPrefixCode: [4, 5, 7],
     shortDescription: {
       en: "Oiled",
       fr: "Huilé",
@@ -239,7 +242,7 @@ export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
   70: {
     category: "CaptureMethod",
     auxiliaryVariant: 71,
-    canOnlyBeUsedWithBirdStatus: [2, 3, 5, 8],
+    canOnlyBeUsedWithPrefixCode: [2, 3, 5, 8],
     shortDescription: {
       en: "Captured by spotlighting",
       fr: "Capturé au moyen d’éclairage de nuit",
@@ -281,7 +284,7 @@ export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
   87: {
     category: "CaptureMethod",
     auxiliaryVariant: 88,
-    canNotBeUsedWithBirdStatus: [4],
+    canNotBeUsedWithPrefixCode: [4],
     shortDescription: {
       en: "Captured with drugs or tranquilizers",
       fr: "Capturé avec des médicaments ou des tranquillisants",
@@ -307,7 +310,7 @@ export const infoCodes: Record<InfoCode, InfoCodeEntry> = {
 export const specialOutputCodeText: Record<
   SpecialOutputCode,
   Pick<
-    InfoCodeEntry,
+    SuffixCodeEntry,
     "shortDescription" | "longDescription" | "shortDescriptionSuffix"
   >
 > = {
@@ -339,25 +342,25 @@ export const specialOutputCodeText: Record<
   },
 };
 
-const auxMarkerCategories = new Set<InfoCategory>([
+const auxMarkerCategories = new Set<SuffixCategory>([
   "VisualAuxMarker",
   "ElectronicAuxMarker",
 ]);
 
-export const auxMarkerCodes: InfoCode[] = infoCodeList.filter((code) =>
-  auxMarkerCategories.has(infoCodes[code].category),
+export const auxMarkerCodes: SuffixCode[] = suffixCodeList.filter((code) =>
+  auxMarkerCategories.has(suffixCodes[code].category),
 );
 
-export function isCodeAllowedWithBirdStatus(
-  code: InfoCode,
-  birdStatus: BirdStatusCode,
+export function isCodeAllowedWithPrefixCode(
+  code: SuffixCode,
+  prefixCode: PrefixCode,
 ): boolean {
-  const entry = infoCodes[code];
-  if (entry.canOnlyBeUsedWithBirdStatus) {
-    return entry.canOnlyBeUsedWithBirdStatus.includes(birdStatus);
+  const entry = suffixCodes[code];
+  if (entry.canOnlyBeUsedWithPrefixCode) {
+    return entry.canOnlyBeUsedWithPrefixCode.includes(prefixCode);
   }
-  if (entry.canNotBeUsedWithBirdStatus) {
-    return !entry.canNotBeUsedWithBirdStatus.includes(birdStatus);
+  if (entry.canNotBeUsedWithPrefixCode) {
+    return !entry.canNotBeUsedWithPrefixCode.includes(prefixCode);
   }
   return true;
 }

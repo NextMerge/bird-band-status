@@ -1,5 +1,3 @@
-"use client";
-
 import { ToggleGroup, ToggleGroupItem } from "#/components/ui/toggle-group.tsx";
 
 function LanguageToggleGroup({

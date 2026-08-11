@@ -2,47 +2,48 @@ import { useMemo, useRef } from "react";
 
 import { Separator } from "#/components/ui/separator.tsx";
 import { Toggle } from "#/components/ui/toggle.tsx";
+import { useLocale } from "#/locale/LocaleContext.tsx";
+import { uiLocale } from "#/locale/uiLocale.ts";
 
-import type { BirdStatusCode } from "../data/birdStatus";
-import { getInfoCodeText } from "../data/getInfoCodeText";
+import { getSuffixCodeText } from "../data/getSuffixCodeText";
+import type { PrefixCode } from "../data/prefixCode";
 import {
-  type InfoCode,
-  infoCodes,
-  isCodeAllowedWithBirdStatus,
-} from "../data/infoCodes";
-import { useLocale } from "../locale/LocaleContext";
-import { uiLocale } from "../locale/uiLocale";
+  type SuffixCode,
+  isCodeAllowedWithPrefixCode,
+  suffixCodes,
+} from "../data/suffixCodes";
+import { renderSuffixCode } from "../utils/renderSuffixCode";
 
 type CodeToggleItemProps = {
-  code: InfoCode;
-  birdStatus: BirdStatusCode;
+  code: SuffixCode;
+  prefixCode: PrefixCode;
   pressed: boolean;
   onPressedChange: (pressed: boolean) => void;
 };
 
 export function CodeToggleItem({
   code,
-  birdStatus,
+  prefixCode,
   pressed,
   onPressedChange,
 }: CodeToggleItemProps) {
   const locale = useLocale();
-  const { shortDescription, longDescription } = getInfoCodeText(code, locale);
+  const { shortDescription, longDescription } = getSuffixCodeText(code, locale);
   const mouseToggled = useRef(false);
 
   const disabledReason = useMemo(() => {
-    if (isCodeAllowedWithBirdStatus(code, birdStatus)) {
+    if (isCodeAllowedWithPrefixCode(code, prefixCode)) {
       return null;
     }
-    const entry = infoCodes[code];
-    if (entry.canOnlyBeUsedWithBirdStatus) {
+    const entry = suffixCodes[code];
+    if (entry.canOnlyBeUsedWithPrefixCode) {
       return {
         type: "canOnlyBeUsedWith" as const,
-        statuses: entry.canOnlyBeUsedWithBirdStatus,
+        statuses: entry.canOnlyBeUsedWithPrefixCode,
       };
     }
-    return { type: "canNotBeUsedWith" as const, status: birdStatus };
-  }, [code, birdStatus]);
+    return { type: "canNotBeUsedWith" as const, status: prefixCode };
+  }, [code, prefixCode]);
   const disabled = disabledReason !== null;
 
   return (
@@ -70,7 +71,7 @@ export function CodeToggleItem({
         className="aria-pressed:border-primary aria-pressed:bg-primary/10 grid h-auto w-full cursor-pointer grid-cols-[auto_1fr] items-start gap-x-3 gap-y-0.5 overflow-hidden rounded-sm px-3 py-1 text-start whitespace-normal lg:grid-cols-[auto_3fr_5fr]"
       >
         <span className="bg-muted text-muted-foreground group-aria-pressed/toggle:bg-primary group-aria-pressed/toggle:text-primary-foreground flex size-12 shrink-0 items-center justify-center rounded-md font-mono text-2xl font-semibold">
-          {code.toString().padStart(2, "0")}
+          {renderSuffixCode(code)}
         </span>
         <span className="group-aria-pressed/toggle:text-foreground text-sm font-medium">
           {shortDescription}
