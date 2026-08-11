@@ -1,0 +1,35 @@
+{
+  "short_name": "Bird Band Status",
+  "name": "Bird Band Status",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/bird-icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/bird-i.svg",
+      "type": "image/svg+xml",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#2d3748",
+  "background_color": "#f7fafc"
+}

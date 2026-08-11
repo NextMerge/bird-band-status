@@ -93,14 +93,6 @@ export const birdSilhouettes = [
     imagePath: "/bird-silhouettes/Buteo_jamaicensis_2_silhouette.svg",
   },
   {
-    name: "Neapolitan songbird",
-    file: "Canzoni_Salvatore_Di_Giacomo_pp2_auciello.svg",
-    sourceUrl:
-      "https://commons.wikimedia.org/wiki/File:Canzoni_Salvatore_Di_Giacomo_pp2_auciello.svg",
-    imagePath:
-      "/bird-silhouettes/Canzoni_Salvatore_Di_Giacomo_pp2_auciello.svg",
-  },
-  {
     name: "Raven",
     file: "Capi_x_Raven.svg",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Capi_x_Raven.svg",
