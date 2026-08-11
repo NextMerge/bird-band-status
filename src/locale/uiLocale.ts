@@ -21,6 +21,10 @@ export const uiLocale = {
         en: "Select one or more of the codes on the right to compute the status code to be submitted to the ",
         fr: "Sélectionnez un ou plusieurs codes à droite pour calculer le code d'état à soumettre à la ",
       },
+      beforeDrawer: {
+        en: "Select one or more of the codes above to compute the status code to be submitted to the ",
+        fr: "Sélectionnez un ou plusieurs codes ci-dessus pour calculer le code d'état à soumettre à la ",
+      },
       link: {
         en: "North American Bird Banding Program database",
         fr: "base de données du Programme nord-américain de baguage des oiseaux",

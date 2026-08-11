@@ -22,7 +22,7 @@ import { FullCodeOutput } from "./FullCodeOutput";
 import { PrefixCodeSelect } from "./PrefixCodeSelect";
 import { RandomBird } from "./RandomBird";
 
-export function SidebarContent() {
+export function SidebarContent({ inDrawer }: { inDrawer?: boolean }) {
   const locale = useLocale();
   const setLocale = useSetLocale();
   const { selectedSuffixCodes, toggleSuffixCode, clearSuffixCodes } =
@@ -36,7 +36,9 @@ export function SidebarContent() {
       <div className="space-y-3">
         <RandomBird />
         <p className="text-muted-foreground text-sm leading-snug">
-          {uiLocale.header.instructions.before[locale]}
+          {inDrawer
+            ? uiLocale.header.instructions.beforeDrawer[locale]
+            : uiLocale.header.instructions.before[locale]}
           <a
             href="https://www.pwrc.usgs.gov/BBL/Bander_Portal/login/birdstatus.php"
             target="_blank"

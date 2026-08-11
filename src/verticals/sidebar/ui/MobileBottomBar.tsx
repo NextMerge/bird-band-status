@@ -63,7 +63,7 @@ export function MobileBottomBar() {
             </DrawerDescription>
           </DrawerHeader>
           <div className="flex flex-1 flex-col gap-5 overflow-y-auto p-4">
-            <SidebarContent />
+            <SidebarContent inDrawer />
           </div>
         </DrawerContent>
       </Drawer>
