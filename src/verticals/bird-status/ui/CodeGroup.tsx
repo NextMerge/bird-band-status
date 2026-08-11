@@ -4,6 +4,8 @@ import { ToggleGroup, ToggleGroupItem } from "#/components/ui/toggle-group.tsx";
 
 import { infoCategories } from "../data/infoCategories";
 import { infoCodes, type InfoCode } from "../data/infoCodes";
+import { useLocale } from "../locale/LocaleContext";
+import { uiLocale } from "../locale/uiLocale";
 import { CodeToggleItem } from "./CodeToggleItem";
 import { useBirdStatus, useSelectedCodes } from "./SelectedCodesContext";
 
@@ -12,6 +14,7 @@ const categoryOptions = ["All", ...infoCategories] as const;
 export function CodeGroup({ codes }: { codes: readonly InfoCode[] }) {
   const { selectedCodes, toggleCode } = useSelectedCodes();
   const { birdStatus } = useBirdStatus();
+  const locale = useLocale();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   const filteredCodes =
@@ -33,7 +36,7 @@ export function CodeGroup({ codes }: { codes: readonly InfoCode[] }) {
       >
         {categoryOptions.map((category) => (
           <ToggleGroupItem key={category} value={category}>
-            {category}
+            {uiLocale.table.category[category][locale]}
           </ToggleGroupItem>
         ))}
       </ToggleGroup>

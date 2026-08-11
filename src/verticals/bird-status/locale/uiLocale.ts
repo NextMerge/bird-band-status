@@ -18,8 +18,8 @@ export const uiLocale = {
   header: {
     instructions: {
       before: {
-        en: "Select one or more of the codes on the right to compute the code to be submitted to the ",
-        fr: "Sélectionnez un ou plusieurs codes à droite pour calculer le code à soumettre à la ",
+        en: "Select one or more of the codes on the right to compute the status code to be submitted to the ",
+        fr: "Sélectionnez un ou plusieurs codes à droite pour calculer le code d'état à soumettre à la ",
       },
       link: {
         en: "North American Bird Banding Program database",
