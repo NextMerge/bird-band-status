@@ -12,16 +12,20 @@ import {
 } from "#/components/ui/drawer.tsx";
 import { Toaster } from "#/components/ui/toast.tsx";
 
+import { computeOutputInfoCode } from "../verticals/bird-status/data/computeOutputInfoCode";
 import { infoCodeList } from "../verticals/bird-status/data/infoCodes";
 import { useLocale } from "../verticals/bird-status/locale/LocaleContext";
 import { uiLocale } from "../verticals/bird-status/locale/uiLocale";
 import { CodeGroup } from "../verticals/bird-status/ui/CodeGroup";
-import { SelectedCodesProvider } from "../verticals/bird-status/ui/SelectedCodesContext";
+import {
+  SelectedCodesProvider,
+  useBirdStatus,
+  useSelectedCodes,
+} from "../verticals/bird-status/ui/SelectedCodesContext";
 import {
   BirdStatusSelect,
   Sidebar,
   SidebarContent,
-  StatusCodeCopyButton,
 } from "../verticals/bird-status/ui/Sidebar";
 
 export const Route = createFileRoute("/")({ component: Home });
@@ -53,22 +57,29 @@ function Home() {
 
 function MobileBottomBar() {
   const locale = useLocale();
+  const { birdStatus } = useBirdStatus();
+  const { selectedCodes } = useSelectedCodes();
+  const statusCode = `${birdStatus}${computeOutputInfoCode([...selectedCodes])
+    .toString()
+    .padStart(2, "0")}`;
+
   return (
     <div className="bg-card flex shrink-0 items-center gap-2 border-t p-2">
       <BirdStatusSelect
         aria-label={uiLocale.birdStatus.selectLabel[locale]}
         className="min-w-0 flex-1"
       />
-      <StatusCodeCopyButton className="bg-primary h-10 w-auto flex-1 px-2 text-xl" />
       <Drawer showSwipeHandle>
         <DrawerTrigger
           render={
             <Button
-              variant="outline"
-              size="icon"
+              className="relative h-10 flex-1"
               aria-label={uiLocale.header.mobileDrawerTitle[locale]}
             >
-              <Menu className="size-4" />
+              <span className="flex-1 text-center font-mono text-xl font-semibold">
+                {statusCode}
+              </span>
+              <Menu className="absolute top-1/2 right-3 size-4 -translate-y-1/2" />
             </Button>
           }
         />
