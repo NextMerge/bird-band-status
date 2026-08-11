@@ -8,10 +8,11 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from "#/components/ui/popover.tsx";
+import { cn } from "#/lib/utils.ts";
 
 import { birdSilhouettes } from "../data/birdSilhouettes";
 
-export function RandomBird() {
+export function RandomBird({ className }: { className?: string }) {
   const bird = useMemo(
     () => birdSilhouettes[Math.floor(Math.random() * birdSilhouettes.length)],
     [],
@@ -19,7 +20,12 @@ export function RandomBird() {
 
   return (
     <Popover>
-      <PopoverTrigger className="mx-auto flex aspect-square w-40 cursor-pointer items-center justify-center rounded-xl p-2">
+      <PopoverTrigger
+        className={cn(
+          "mx-auto flex aspect-square w-40 cursor-pointer items-center justify-center rounded-xl p-2",
+          className,
+        )}
+      >
         <img
           src={bird.imagePath}
           alt={bird.name}

@@ -58,10 +58,6 @@ export const uiLocale = {
       en: "Details",
       fr: "Détails",
     },
-    mobileDrawerDescription: {
-      en: "Selected codes, language, and links",
-      fr: "Codes sélectionnés, langue et liens",
-    },
   },
   birdStatus: {
     selectLabel: {

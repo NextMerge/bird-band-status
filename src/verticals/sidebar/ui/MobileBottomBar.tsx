@@ -55,11 +55,9 @@ export function MobileBottomBar() {
         <DrawerTrigger render={<OpenSidebarDrawerButton />} />
         <DrawerContent>
           <DrawerHeader>
-            <DrawerTitle>
-              {uiLocale.header.mobileDrawerTitle[locale]}
-            </DrawerTitle>
+            <DrawerTitle>{uiLocale.meta.title[locale]}</DrawerTitle>
             <DrawerDescription>
-              {uiLocale.header.mobileDrawerDescription[locale]}
+              {uiLocale.meta.description[locale]}
             </DrawerDescription>
           </DrawerHeader>
           <div className="flex flex-1 flex-col gap-5 overflow-y-auto p-4">

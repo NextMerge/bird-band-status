@@ -34,7 +34,7 @@ export function SidebarContent({ inDrawer }: { inDrawer?: boolean }) {
   return (
     <>
       <div className="space-y-3">
-        <RandomBird />
+        <RandomBird className={inDrawer ? "w-24" : undefined} />
         <p className="text-muted-foreground text-sm leading-snug">
           {inDrawer
             ? uiLocale.header.instructions.beforeDrawer[locale]
