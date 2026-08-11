@@ -19,6 +19,7 @@ body,
 body {
   margin: 0;
   overscroll-behavior: none;
+  background-color: oklch(0.16 0.025 326);
 }
 
 @theme inline {
