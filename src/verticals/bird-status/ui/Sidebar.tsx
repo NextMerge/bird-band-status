@@ -1,6 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { Bird } from "lucide-react";
-import { useEffect, useRef, useState, type ComponentProps } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ComponentProps,
+} from "react";
 
 import { Button, buttonVariants } from "#/components/ui/button.tsx";
 import {
@@ -15,10 +20,19 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "#/components/ui/native-select.tsx";
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "#/components/ui/popover.tsx";
 import { ScrollArea } from "#/components/ui/scroll-area.tsx";
 import { toast } from "#/components/ui/toast.tsx";
 import { cn } from "#/lib/utils.ts";
 
+import { birdSilhouettes } from "../data/birdSilhouettes.ts";
 import { birdStatuses } from "../data/birdStatus";
 import { computeOutputInfoCode } from "../data/computeOutputInfoCode";
 import { getInfoCodeText } from "../data/getInfoCodeText";
@@ -146,6 +160,40 @@ export function CopyableStatusCode({ className }: { className?: string }) {
   );
 }
 
+function RandomBird() {
+  const bird = useMemo(
+    () => birdSilhouettes[Math.floor(Math.random() * birdSilhouettes.length)],
+    [],
+  );
+
+  return (
+    <Popover>
+      <PopoverTrigger className="mx-auto flex aspect-square w-40 cursor-pointer items-center justify-center rounded-xl p-2">
+        <img
+          src={bird.imagePath}
+          alt={bird.name}
+          className="h-full w-full object-contain invert"
+        />
+      </PopoverTrigger>
+      <PopoverContent className="w-72">
+        <PopoverHeader>
+          <PopoverTitle>{bird.name}</PopoverTitle>
+          <PopoverDescription>
+            <a
+              href={bird.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-primary underline underline-offset-4"
+            >
+              View on Wikimedia Commons
+            </a>
+          </PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 export function SidebarContent() {
   const locale = useLocale();
   const setLocale = useSetLocale();
@@ -157,9 +205,7 @@ export function SidebarContent() {
   return (
     <>
       <div className="space-y-3">
-        <div className="border-border bg-muted/20 flex aspect-square w-24 items-center justify-center rounded-xl border border-dashed">
-          <Bird className="text-muted-foreground size-10" />
-        </div>
+        <RandomBird />
         <p className="text-muted-foreground text-sm leading-snug">
           {uiLocale.header.instructions.before[locale]}
           <a
