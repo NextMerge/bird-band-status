@@ -29,6 +29,7 @@ import {
   PopoverTrigger,
 } from "#/components/ui/popover.tsx";
 import { ScrollArea } from "#/components/ui/scroll-area.tsx";
+import { Separator } from "#/components/ui/separator.tsx";
 import { toast } from "#/components/ui/toast.tsx";
 import { cn } from "#/lib/utils.ts";
 
@@ -62,8 +63,7 @@ export function BirdStatusSelect({
     >
       {birdStatuses.map((code) => (
         <NativeSelectOption key={code} value={code.toString()}>
-          {code.toString().padStart(2, "0")} –{" "}
-          {uiLocale.birdStatus.status[code][locale]}
+          {code.toString()} – {uiLocale.birdStatus.status[code][locale]}
         </NativeSelectOption>
       ))}
     </NativeSelect>
@@ -254,7 +254,7 @@ export function SidebarContent() {
               </Button>
             )}
           </div>
-          <ScrollArea className="border-border h-48 rounded-lg border">
+          <ScrollArea className="border-border h-36 rounded-lg border">
             {selectedCodes.size === 0 ? (
               <p className="text-muted-foreground p-2 text-sm">
                 {uiLocale.output.noActiveInfoCodes[locale]}
@@ -303,12 +303,16 @@ export function SidebarContent() {
           >
             {uiLocale.header.mortalityButton[locale]}
           </Link>
+          <Separator orientation="vertical" />
           <LanguageToggleGroup
             value={locale}
             onChange={setLocale}
             className="w-full flex-1"
           />
         </div>
+        <p className="text-muted-foreground text-center text-xs">
+          {uiLocale.header.headerNotice[locale]}
+        </p>
         <p className="text-muted-foreground text-center text-xs">
           {uiLocale.header.madeBy[locale]} ·{" "}
           <a

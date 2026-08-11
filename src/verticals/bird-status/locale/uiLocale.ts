@@ -31,8 +31,8 @@ export const uiLocale = {
       },
     },
     headerNotice: {
-      en: "This tool is not affiliated with the USGS Bird Banding Lab or the CWS Bird Banding Office.",
-      fr: "Cet outil n'est pas affilié au USGS Bird Banding Lab ou au Bureau de baguage des oiseaux du SCF.",
+      en: "This tool is not affiliated with the CWS Bird Banding Office or the USGS Bird Banding Lab.",
+      fr: "Cet outil n'est pas affilié au Bureau de baguage des oiseaux du SCF ou au USGS Bird Banding Lab.",
     },
     sourceCode: {
       en: "Source code",
@@ -191,15 +191,15 @@ export const uiLocale = {
     disabledNote: {
       canOnlyBeUsedWith: {
         en: (code: number, statuses: number[]) =>
-          `Code ${code.toString().padStart(2, "0")} can only be used with bird statuses ${statuses.map((s) => s.toString().padStart(2, "0")).join(", ")}.`,
+          `Code ${code.toString()} can only be used with bird statuses ${statuses.map((s) => s.toString()).join(", ")}.`,
         fr: (code: number, statuses: number[]) =>
-          `Le code ${code.toString().padStart(2, "0")} ne peut être utilisé qu'avec les états d'oiseau ${statuses.map((s) => s.toString().padStart(2, "0")).join(", ")}.`,
+          `Le code ${code.toString()} ne peut être utilisé qu'avec les états d'oiseau ${statuses.map((s) => s.toString()).join(", ")}.`,
       },
       canNotBeUsedWith: {
         en: (code: number, status: number) =>
-          `Code ${code.toString().padStart(2, "0")} cannot be used with bird status ${status.toString().padStart(2, "0")}.`,
+          `Code ${code.toString()} cannot be used with bird status ${status.toString()}.`,
         fr: (code: number, status: number) =>
-          `Le code ${code.toString().padStart(2, "0")} ne peut pas être utilisé avec l'état d'oiseau ${status.toString().padStart(2, "0")}.`,
+          `Le code ${code.toString()} ne peut pas être utilisé avec l'état d'oiseau ${status.toString()}.`,
       },
     },
   },
