@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 
 import { Separator } from "#/components/ui/separator.tsx";
 import { Toggle } from "#/components/ui/toggle.tsx";
@@ -31,7 +31,7 @@ export function CodeToggleItem({
   const { shortDescription, longDescription } = getSuffixCodeText(code, locale);
   const mouseToggled = useRef(false);
 
-  const disabledReason = useMemo(() => {
+  const disabledReason = (() => {
     if (isCodeAllowedWithPrefixCode(code, prefixCode)) {
       return null;
     }
@@ -43,7 +43,7 @@ export function CodeToggleItem({
       };
     }
     return { type: "canNotBeUsedWith" as const, status: prefixCode };
-  }, [code, prefixCode]);
+  })();
   const disabled = disabledReason !== null;
 
   return (

@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 import type { Locale } from "./uiLocale";
 
@@ -34,13 +34,9 @@ export function LocaleProvider({
   const [locale, setLocale] = useState<Locale>(
     initialValue ?? getDefaultLocale,
   );
-  const contextValue = useMemo(
-    () => ({ locale, setLocale }),
-    [locale, setLocale],
-  );
 
   return (
-    <LocaleContext.Provider value={contextValue}>
+    <LocaleContext.Provider value={{ locale, setLocale }}>
       {children}
     </LocaleContext.Provider>
   );

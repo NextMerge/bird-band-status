@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { defaultPrefixCode, type PrefixCode } from "../data/prefixCode";
 import {
@@ -68,7 +61,7 @@ export function SelectedSuffixCodesProvider({
     });
   }, [prefixCode]);
 
-  const toggleSuffixCode = useCallback((code: SuffixCode) => {
+  const toggleSuffixCode = (code: SuffixCode) => {
     setSelectedSuffixCodes((prev) => {
       const next = new Set(prev);
       if (next.has(code)) {
@@ -78,31 +71,22 @@ export function SelectedSuffixCodesProvider({
       }
       return next;
     });
-  }, []);
+  };
 
-  const clearSuffixCodes = useCallback(() => {
+  const clearSuffixCodes = () => {
     setSelectedSuffixCodes(new Set());
-  }, []);
-
-  const theContext = useMemo(
-    () => ({
-      selectedSuffixCodes,
-      toggleSuffixCode,
-      clearSuffixCodes,
-      prefixCode,
-      setPrefixCode,
-    }),
-    [
-      selectedSuffixCodes,
-      toggleSuffixCode,
-      clearSuffixCodes,
-      prefixCode,
-      setPrefixCode,
-    ],
-  );
+  };
 
   return (
-    <SelectedSuffixCodesContext.Provider value={theContext}>
+    <SelectedSuffixCodesContext.Provider
+      value={{
+        selectedSuffixCodes,
+        toggleSuffixCode,
+        clearSuffixCodes,
+        prefixCode,
+        setPrefixCode,
+      }}
+    >
       {children}
     </SelectedSuffixCodesContext.Provider>
   );

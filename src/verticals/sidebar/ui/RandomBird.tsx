@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import {
   Popover,
   PopoverContent,
@@ -13,10 +11,8 @@ import { cn } from "#/lib/utils.ts";
 import { birdSilhouettes } from "../data/birdSilhouettes";
 
 export function RandomBird({ className }: { className?: string }) {
-  const bird = useMemo(
-    () => birdSilhouettes[Math.floor(Math.random() * birdSilhouettes.length)],
-    [],
-  );
+  const bird =
+    birdSilhouettes[Math.floor(Math.random() * birdSilhouettes.length)];
 
   return (
     <Popover>
