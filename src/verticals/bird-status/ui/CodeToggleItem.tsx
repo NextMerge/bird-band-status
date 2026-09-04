@@ -9,6 +9,7 @@ import { getSuffixCodeText } from "../data/getSuffixCodeText";
 import type { PrefixCode } from "../data/prefixCode";
 import {
   type SuffixCode,
+  areSuffixCodesCompatible,
   isCodeAllowedWithPrefixCode,
   suffixCodes,
 } from "../data/suffixCodes";
@@ -17,6 +18,7 @@ import { renderSuffixCode } from "../utils/renderSuffixCode";
 type CodeToggleItemProps = {
   code: SuffixCode;
   prefixCode: PrefixCode;
+  selectedSuffixCodes: ReadonlySet<SuffixCode>;
   pressed: boolean;
   onPressedChange: (pressed: boolean) => void;
 };
@@ -24,6 +26,7 @@ type CodeToggleItemProps = {
 export function CodeToggleItem({
   code,
   prefixCode,
+  selectedSuffixCodes,
   pressed,
   onPressedChange,
 }: CodeToggleItemProps) {
@@ -32,17 +35,25 @@ export function CodeToggleItem({
   const mouseToggled = useRef(false);
 
   const disabledReason = (() => {
-    if (isCodeAllowedWithPrefixCode(code, prefixCode)) {
-      return null;
+    if (!isCodeAllowedWithPrefixCode(code, prefixCode)) {
+      const entry = suffixCodes[code];
+      if (entry.canOnlyBeUsedWithPrefixCode) {
+        return {
+          type: "canOnlyBeUsedWith" as const,
+          statuses: entry.canOnlyBeUsedWithPrefixCode,
+        };
+      }
+      return { type: "canNotBeUsedWith" as const, status: prefixCode };
     }
-    const entry = suffixCodes[code];
-    if (entry.canOnlyBeUsedWithPrefixCode) {
-      return {
-        type: "canOnlyBeUsedWith" as const,
-        statuses: entry.canOnlyBeUsedWithPrefixCode,
-      };
+    for (const selected of selectedSuffixCodes) {
+      if (selected !== code && !areSuffixCodesCompatible(code, selected)) {
+        if (suffixCodes[code].canOnlyBeUsedWithSuffixCodes?.length === 0) {
+          return { type: "incompatibleWithAny" as const };
+        }
+        return { type: "incompatibleWithCode" as const, otherCode: selected };
+      }
     }
-    return { type: "canNotBeUsedWith" as const, status: prefixCode };
+    return null;
   })();
   const disabled = disabledReason !== null;
 
@@ -89,10 +100,19 @@ export function CodeToggleItem({
                 code,
                 disabledReason.statuses,
               )
-            : uiLocale.codeToggle.disabledNote.canNotBeUsedWith[locale](
-                code,
-                disabledReason.status,
-              )}
+            : disabledReason.type === "canNotBeUsedWith"
+              ? uiLocale.codeToggle.disabledNote.canNotBeUsedWith[locale](
+                  code,
+                  disabledReason.status,
+                )
+              : disabledReason.type === "incompatibleWithAny"
+                ? uiLocale.codeToggle.disabledNote.incompatibleWithAny[locale](
+                    code,
+                  )
+                : uiLocale.codeToggle.disabledNote.incompatibleWithCode[locale](
+                    code,
+                    disabledReason.otherCode,
+                  )}
         </p>
       ) : null}
       <Separator />

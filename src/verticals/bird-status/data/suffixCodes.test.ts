@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { isCodeAllowedWithPrefixCode } from "./suffixCodes";
+import {
+  areSuffixCodesCompatible,
+  isCodeAllowedWithPrefixCode,
+} from "./suffixCodes";
 
 describe("isCodeAllowedWithPrefixCode", () => {
   it("allows codes with no bird-status restrictions", () => {
@@ -16,5 +19,16 @@ describe("isCodeAllowedWithPrefixCode", () => {
   it("enforces canNotBeUsedWithPrefixCode", () => {
     expect(isCodeAllowedWithPrefixCode(18, 3)).toBe(true);
     expect(isCodeAllowedWithPrefixCode(18, 7)).toBe(false);
+  });
+});
+
+describe("areSuffixCodesCompatible", () => {
+  it("allows codes with no suffix restrictions", () => {
+    expect(areSuffixCodesCompatible(1, 2)).toBe(true);
+  });
+
+  it("blocks code 7 from combining with any other code, both directions", () => {
+    expect(areSuffixCodesCompatible(7, 1)).toBe(false);
+    expect(areSuffixCodesCompatible(1, 7)).toBe(false);
   });
 });

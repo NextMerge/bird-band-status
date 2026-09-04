@@ -1,3 +1,6 @@
+import type { SuffixCode } from "#/verticals/bird-status/data/suffixCodes";
+import { renderSuffixCode } from "#/verticals/bird-status/utils/renderSuffixCode";
+
 export type Locale = "en" | "fr";
 
 export const uiLocale = {
@@ -214,16 +217,28 @@ export const uiLocale = {
   codeToggle: {
     disabledNote: {
       canOnlyBeUsedWith: {
-        en: (code: number, statuses: number[]) =>
-          `Code ${code.toString()} can only be used with bird statuses ${statuses.map((s) => s.toString()).join(", ")}.`,
-        fr: (code: number, statuses: number[]) =>
-          `Le code ${code.toString()} ne peut être utilisé qu'avec les états d'oiseau ${statuses.map((s) => s.toString()).join(", ")}.`,
+        en: (code: SuffixCode, statuses: number[]) =>
+          `Code ${renderSuffixCode(code)} can only be used with bird statuses ${statuses.map((s) => s.toString()).join(", ")}.`,
+        fr: (code: SuffixCode, statuses: number[]) =>
+          `Le code ${renderSuffixCode(code)} ne peut être utilisé qu'avec les états d'oiseau ${statuses.map((s) => s.toString()).join(", ")}.`,
       },
       canNotBeUsedWith: {
-        en: (code: number, status: number) =>
-          `Code ${code.toString()} cannot be used with bird status ${status.toString()}.`,
-        fr: (code: number, status: number) =>
-          `Le code ${code.toString()} ne peut pas être utilisé avec l'état d'oiseau ${status.toString()}.`,
+        en: (code: SuffixCode, status: number) =>
+          `Code ${renderSuffixCode(code)} cannot be used with bird status ${status.toString()}.`,
+        fr: (code: SuffixCode, status: number) =>
+          `Le code ${renderSuffixCode(code)} ne peut pas être utilisé avec l'état d'oiseau ${status.toString()}.`,
+      },
+      incompatibleWithAny: {
+        en: (code: SuffixCode) =>
+          `Code ${renderSuffixCode(code)} cannot be combined with any other code.`,
+        fr: (code: SuffixCode) =>
+          `Le code ${renderSuffixCode(code)} ne peut être combiné avec aucun autre code.`,
+      },
+      incompatibleWithCode: {
+        en: (code: SuffixCode, otherCode: SuffixCode) =>
+          `Code ${renderSuffixCode(code)} cannot be combined with code ${renderSuffixCode(otherCode)}.`,
+        fr: (code: SuffixCode, otherCode: SuffixCode) =>
+          `Le code ${renderSuffixCode(code)} ne peut pas être combiné avec le code ${renderSuffixCode(otherCode)}.`,
       },
     },
   },

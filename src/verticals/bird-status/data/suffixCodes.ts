@@ -32,6 +32,7 @@ type SuffixCodeEntry = {
   auxiliaryVariant?: AuxVariantSuffixCode;
   canOnlyBeUsedWithPrefixCode?: PrefixCode[];
   canNotBeUsedWithPrefixCode?: PrefixCode[];
+  canOnlyBeUsedWithSuffixCodes?: SuffixCode[];
   shortDescription: LocalizedText;
   longDescription?: LocalizedText;
   shortDescriptionSuffix?: LocalizedText;
@@ -95,6 +96,7 @@ export const suffixCodes: Record<SuffixCode, SuffixCodeEntry> = {
   7: {
     category: "VisualAuxMarker",
     auxiliaryVariant: 30,
+    canOnlyBeUsedWithSuffixCodes: [],
     shortDescription: {
       en: "Double-banded (Two Federal bands placed on a bird at the same time)",
       fr: "Double bague (Deux bagues fédérales placées sur un oiseau en même temps)",
@@ -350,6 +352,21 @@ const auxMarkerCategories = new Set<SuffixCategory>([
 export const auxMarkerCodes: SuffixCode[] = suffixCodeList.filter((code) =>
   auxMarkerCategories.has(suffixCodes[code].category),
 );
+
+export function areSuffixCodesCompatible(
+  a: SuffixCode,
+  b: SuffixCode,
+): boolean {
+  const aAllowed = suffixCodes[a].canOnlyBeUsedWithSuffixCodes;
+  if (aAllowed && !aAllowed.includes(b)) {
+    return false;
+  }
+  const bAllowed = suffixCodes[b].canOnlyBeUsedWithSuffixCodes;
+  if (bAllowed && !bAllowed.includes(a)) {
+    return false;
+  }
+  return true;
+}
 
 export function isCodeAllowedWithPrefixCode(
   code: SuffixCode,

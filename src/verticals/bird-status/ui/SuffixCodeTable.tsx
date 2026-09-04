@@ -48,6 +48,7 @@ export function SuffixCodeTable({ codes }: { codes: readonly SuffixCode[] }) {
           key={code}
           code={code}
           prefixCode={prefixCode}
+          selectedSuffixCodes={selectedSuffixCodes}
           pressed={selectedSuffixCodes.has(code)}
           onPressedChange={() => {
             toggleSuffixCode(code);

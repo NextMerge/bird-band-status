@@ -58,9 +58,15 @@
   "lint-staged": {
     "*": "oxfmt"
   },
-  "engines": {
-    "node": ">=24",
-    "pnpm": ">=11.7.0"
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": ">=12.3.2",
+      "onFail": "error"
+    }
   },
-  "packageManager": "pnpm@11.7.0"
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@12.3.2"
 }
