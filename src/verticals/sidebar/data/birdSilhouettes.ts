@@ -15,14 +15,6 @@ export const birdSilhouettes = [
     imagePath: "/bird-silhouettes/2008-07-25_Geese_over_01.svg",
   },
   {
-    name: "Avemorfic Portacelli motif",
-    file: "20250301-Avemorfic-Portacelli_complex-silhouet.svg",
-    sourceUrl:
-      "https://commons.wikimedia.org/wiki/File:20250301-Avemorfic-Portacelli_complex-silhouet.svg",
-    imagePath:
-      "/bird-silhouettes/20250301-Avemorfic-Portacelli_complex-silhouet.svg",
-  },
-  {
     name: "Cooper's Hawk",
     file: "36_Stanley_Hawk_hunting_a_songbird.svg",
     sourceUrl:
